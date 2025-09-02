@@ -1,0 +1,193 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background-color: #347B98;
+    color: whitesmoke;
+    font-size: 3rem;
+}
+
+nav {
+    padding: 1rem;
+    background-color: #1A3E4C;
+    color: white;
+    font-size: 1rem;
+}
+
+main {
+    padding: 1rem;
+}
+
+section {
+    display: flex;
+    flex-flow: column;
+    gap: 1rem;
+}
+
+h1,
+h2 {
+    font-size: 2.5rem;
+}
+
+p {
+    font-size: 1rem;
+}
+
+a {
+    color: #67AFCB;
+    text-decoration: none;
+   
+}
+
+a:hover {
+    opacity: .85;
+}
+
+
+span {
+    padding:10px;
+    width:50%;
+}
+
+
+form.logout button.logout-button{  
+    text-decoration: none;
+    color: #67AFCB;
+    font-family:'Times New Roman', Times, serif;
+    font-size: 1rem !important;
+}
+
+.logout-button:hover{
+    opacity: .85;
+}
+
+.homepage-main{
+    display: block;
+  max-width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  place-content: center;
+    
+
+}
+.benvenuto{
+    color: #1A3E4C;
+    text-align: center;
+}
+.slogan{
+    text-align: center;
+    font-size: 1rem;
+    color: #67AFCB;
+}
+img {
+  display: block;
+  margin: auto;
+  width: 35%;
+}
+.buttoni-homepage{
+    display: flex;
+
+}
+
+.btn-homepage-dashboard{
+    background-color:#092834;
+    color: white;
+    border:none;
+    font-size: 1rem;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    border-radius: 4px;
+    padding: 14px 40px;
+    transition-duration: 0.4s;
+}
+.btn-homepage-dashboard:hover{
+    background-color: #67AFCB; 
+    color: white;
+}
+.btn-homepage-register{
+    background-color:#092834;
+    color: white;
+    border:none;
+    font-size: 1rem;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    border-radius: 4px;
+    padding: 14px 40px;
+    transition-duration: 0.4s;
+}
+
+.btn-homepage-register:hover{
+    background-color: #67AFCB; 
+    color: white;
+}
+.banner {
+    display: block;
+    width: 100%;
+    max-width: 800px;
+}
+
+.form-with-validation {
+    max-width: 600px;
+    font-size: 1rem;
+    padding: 1rem;
+    display: flex;
+    flex-flow: column;
+    gap: 1rem;
+}
+
+.form-with-validation div {
+    display: flex;
+    flex-flow: column;
+    gap: 0.5rem;
+}
+
+.form-with-validation input {
+    padding: 0.25rem;
+    max-width: 300px;
+}
+
+.form-submit {
+    padding: 0.5rem;
+    border-radius: 10px;
+    width: 125px;
+}
+
+.helptext {
+    font-size: 1rem;
+    margin-left: 1rem;
+}
+
+.helptext ul {
+    list-style-type: none;
+}
+
+.errorlist {
+    color: #F00;
+    margin-left: 2rem;
+}
+
+.errorlist li::marker {
+    content: '🚨 ';
+}
+
+
+.logout {
+    display: inline-block;
+}
+
+.logout-button {
+    font-size: 2.5rem;
+    background-color: rgb(0, 0, 0, 0);
+    border: none;
+}
+
+.logout-button:hover {
+    opacity: .85;
+}
+.circle {
+    border-radius: 50%;
+    width:150px;
+    height: 150px;
+}

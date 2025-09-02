@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Registrati
+{% endblock %}
+
+{% block content %}
+    <h> Registrati come un nuovo utente. </h1>
+    <form class="form-with-validation" action="/users/register/" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <button class="form-submit">Registrati</button>
+    </form>
+    <p> Hai già un account? Entra <a href="{% url 'users:login' %}" > qui </a> </p>
+{% endblock %}

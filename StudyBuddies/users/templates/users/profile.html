@@ -1,0 +1,26 @@
+{%extends 'base.html'%}
+{% load static %}
+
+{% block title%}
+    Profilo
+{% endblock %}
+
+{% block content %}
+{%if user.profile_picture%}
+<img src="{{user.profile_picture.url}}" alt="Immagine di profilo" class="circle" >
+{% else %}
+<img src="{% static 'images/nopfp.jpg' %}" alt="Immagine di profilo" class="circle" >
+{% endif %}
+<h4>{{ user.username }}</h4>
+<p class="tag-professional">{{ user.get_user_type_display }}</p>
+                {% if user.is_professional %}
+                    <p class="tag-expertise">{{ user.expertise_field }}</p>
+                {% endif %}
+<h6>Informazioni Profilo</h6>
+<p><strong>Email:</strong> {{ user.email }}</p>
+{% if user.bio %}
+<p><strong>Bio:</strong> {{ user.bio }}</p>
+{% endif %}
+<!--<a href="#" class="btn btn-outline-primary">Modifica Profilo</a>-->
+
+{% endblock %}

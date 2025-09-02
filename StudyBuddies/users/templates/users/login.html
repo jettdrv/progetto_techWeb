@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Entra
+{% endblock %}
+
+{% block content %}
+    <h> Entra come utente esistente. </h1>
+    <form class="form-with-validation" action="/users/login/" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <button class="form-submit">Entra</button>
+    </form>
+    <p> Non hai un account? Registrati <a href="{% url 'users:register' %}" > qui </a> </p>
+{% endblock %}

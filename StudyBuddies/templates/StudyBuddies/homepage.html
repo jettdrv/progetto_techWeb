@@ -1,0 +1,29 @@
+{% extends 'base.html'%}
+{% load static%}
+
+{% block title %}
+    StudyBuddies
+{% endblock %}
+
+{% block content%}
+<main class="homepage-main">
+  <h1 class="benvenuto">Benvenuto a StudyBuddies!</h1>
+  <h2 class="slogan">L'app ideata per migliorare la tua produttività e connetterti con i tuoi Study Buddies.</h2>
+  <img src="{% static 'images/benvenuto.png' %}" alt="pupazzo di benvenuto" width="200" height="200">
+  <!--<a href="http://www.freepik.com">Designed by Freepik</a>-->
+  <div class="buttoni-homepage">
+    <span>
+        <p>Visualizza la tua dashboard</p>
+        <a class= "btn-homepage-dashboard" href="{% url 'users:dashboard' %}">Vai alla dashboard</a>
+
+    </span>
+    <span>
+        <p>Oppure registrati per far parte del mondo di StudyBuddies</p>
+        <a class= "btn-homepage-dashboard" href="{% url 'users:register' %}">Registrati</a>
+       
+    </span>
+  </div>
+
+</main>
+ <p> check out <a href="/about"> about </a> </p>
+{% endblock %}
