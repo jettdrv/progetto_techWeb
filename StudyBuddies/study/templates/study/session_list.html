@@ -14,6 +14,14 @@ Lista Sessioni
                         <strong>{{ session.subject }}</strong> - 
                         {{ session.duration }} ore - 
                         <small >{{ session.date }}</small>
+                         <form method="post" action="{% url 'study:delete_session' session.pk %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit">Elimina</button>
+                        </form> 
+                        <form method="post" action="{% url 'study:edit_session' session.pk %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit">Modifica</button>
+                        </form> 
                     </div>    
                 {% endfor %}
             </div>

@@ -177,13 +177,13 @@ img {
 
 .errorlist {
     color: #F00;
-    margin-left: 2rem;
+    margin-left: 0.5rem;
+    font-size:0.8rem;
 }
 
 .errorlist li::marker {
-    content: '🚨 ';
+    content: '*';
 }
-
 
 .logout {
     display: inline-block;

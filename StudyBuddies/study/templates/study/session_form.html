@@ -1,32 +1,18 @@
 
 {% extends 'dashboard.html' %}
+{% load crispy_forms_tags %}
 
 {% block title %}
 
-Aggiungi Sessione
+Aggiungi/Modifica Sessione
 
 {% endblock %}
 
 {% block dashboard_page %}
 <div class="dashboard-main">
-<form method="post" action="{% url 'study:add_session' %}">
+        <form method="post">
             {% csrf_token %}
-            <div>
-                <label for="subject" class="form-label">Materia/Argomento</label>
-                <input type="text" class="form-control" id="subject" name="subject" required placeholder="Es. Matematica, Python...">
-            </div>
-            <div>
-                <label for="duration" class="form-label">Durata (ore)</label>
-                <input type="number" class="form-control" id="duration" name="duration" step="0.5" min="0.5" required placeholder="Es. 1.5">
-            </div>
-            <div>
-                <label for="date" class="form-label">Data</label>
-                <input type="date" class="form-control" id="date" name="date" required value="{{ today }}">
-            </div>
-            <div>
-                <label for="notes" class="form-label">Note: </label>
-                <input type="text" class="form-control" id="notes" name="notes" >
-            </div>
+            {{ form.as_p}}
             <button type="submit" class="btn btn-success">Salva Sessione</button>
         </form>
     </div>

@@ -50,24 +50,9 @@ def study_session_create(request):
         form = CreateSessionForm()
     
     return render(request, 'study/session_form.html', {'form': form, 'title': 'Aggiungi Sessione'})
-'''
-@login_required
-def study_session_edit(request, pk):
-    session = get_object_or_404(StudySession, pk=pk, user=request.user)
-    
-    if request.method == 'POST':
-        form = StudySessionForm(request.POST, instance=session)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Sessione aggiornata con successo!')
-            return redirect('study:session_list')
-    else:
-        form = StudySessionForm(instance=session)
-    
-    return render(request, 'study/session_form.html', {'form': form, 'title': 'Modifica Sessione'})
 
 @login_required
-def study_session_delete(request, pk):
+def delete_study_session(request, pk):
     session = get_object_or_404(StudySession, pk=pk, user=request.user)
     
     if request.method == 'POST':
@@ -75,8 +60,28 @@ def study_session_delete(request, pk):
         messages.success(request, 'Sessione eliminata con successo!')
         return redirect('study:session_list')
     
-    return render(request, 'study/session_confirm_delete.html', {'session': session})
+    return redirect('study:session_list')
 
+
+@login_required
+def edit_study_session(request, pk):
+    session = get_object_or_404(StudySession, pk=pk, user=request.user)
+    
+    if request.method == 'POST':
+        form = CreateSessionForm(request.POST, instance=session)
+        if form.is_valid():
+            print(form.cleaned_data)
+            form.save()
+            messages.success(request, 'Sessione aggiornata con successo!')
+            return redirect('study:session_list')
+    else:
+        form = CreateSessionForm(instance=session)
+   
+    return render(request, 'study/session_form.html', {'form': form, 'title': 'Modifica sessione'})
+
+
+
+'''
 @login_required
 def study_statistics(request):
     # Statistiche generali
