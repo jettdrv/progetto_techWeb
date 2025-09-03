@@ -3,7 +3,9 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from .forms import CustomUserCreationForm
-
+from study.models import StudySession
+from study.forms import CreateSessionForm
+from study.views import *
 
 def register_view(request):
     if request.method == "POST":
@@ -34,6 +36,9 @@ def logout_view(request):
 
 @login_required
 def dashboard_view(request):
+    study_session_create(request)  #form per la creazione di una sessione di studio definita in study.forms
+    
+
 
     return render(request, "users/dashboard.html")
 

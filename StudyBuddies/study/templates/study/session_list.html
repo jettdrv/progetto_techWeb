@@ -1,0 +1,27 @@
+<!-- Lista delle sessioni esistenti -->
+<div class="card">
+    <div class="card-header">
+        <h5>📚 Le tue Sessioni di Studio</h5>
+    </div>
+    <div class="card-body">
+        {% if sessions %}
+            <div class="list-group">
+                {% for session in sessions %}
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>{{ session.subject }}</strong> - 
+                        {{ session.duration }} ore - 
+                        <small class="text-muted">{{ session.date }}</small>
+                    </div>
+                    <form method="post" action="{% url 'delete_session' session.id %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-sm btn-outline-danger">Elimina</button>
+                    </form>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-muted">Non hai ancora registrato sessioni di studio. Inizia ora!</p>
+        {% endif %}
+    </div>
+</div>

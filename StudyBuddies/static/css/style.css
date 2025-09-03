@@ -191,3 +191,10 @@ img {
     width:150px;
     height: 150px;
 }
+
+p.tag-expertise{
+    background-color: green;
+    padding: 10px;
+    color:white;
+    width: 75px;
+}

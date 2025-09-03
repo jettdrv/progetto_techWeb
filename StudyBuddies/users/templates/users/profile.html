@@ -14,7 +14,8 @@
 <h4>{{ user.username }}</h4>
 <p class="tag-professional">{{ user.get_user_type_display }}</p>
                 {% if user.is_professional %}
-                    <p class="tag-expertise">{{ user.expertise_field }}</p>
+                
+                   <p class="tag-expertise">{{ user.expertise_field }}</p>
                 {% endif %}
 <h6>Informazioni Profilo</h6>
 <p><strong>Email:</strong> {{ user.email }}</p>

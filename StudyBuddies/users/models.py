@@ -13,5 +13,6 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.username
     
+    @property
     def is_professional(self):
-        return self.user_type == 'professional'
+        return self.user_type == 'Professional'
