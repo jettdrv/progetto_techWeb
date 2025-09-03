@@ -3,8 +3,25 @@
 Dashboard
 {%endblock %}
 
+
+
 {% block content %}
-<h2>La tua Dashboard</h2>
-<a href="{% url 'study:add_session' %}"> Aggiungi Sessione ➕ </a>
-<a href="{% url 'study:session_list' %}">Visualizza le tue sessioni 📚</a> 
+
+
+
+
+<div class="side-nav">
+    <a href="{% url 'study:add_session' %}"> Aggiungi Sessione ➕ </a>
+    <a href="{% url 'study:session_list' %}">Visualizza le tue sessioni 📚</a> 
+    <a href="{% url 'users:profile' %}">Profilo 👤</a> 
+</div>
+
+<div class="dashboard-main">
+    <h2>La tua Dashboard</h2>
+</div>
+
+{% block dashboard_page %}
+
+{% endblock%}
+
 {% endblock %}

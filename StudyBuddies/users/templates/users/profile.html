@@ -1,11 +1,12 @@
-{%extends 'base.html'%}
+{%extends 'dashboard.html'%}
 {% load static %}
 
 {% block title%}
     Profilo
 {% endblock %}
 
-{% block content %}
+{% block dashboard_page %}
+<div class="dashboard-main">
 {%if user.profile_picture%}
 <img src="{{user.profile_picture.url}}" alt="Immagine di profilo" class="circle" >
 {% else %}
@@ -22,6 +23,6 @@
 {% if user.bio %}
 <p><strong>Bio:</strong> {{ user.bio }}</p>
 {% endif %}
-<!--<a href="#" class="btn btn-outline-primary">Modifica Profilo</a>-->
-
+<!--<a href="#" >Modifica Profilo</a>-->
+</div>
 {% endblock %}

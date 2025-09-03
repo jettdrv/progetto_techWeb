@@ -62,7 +62,8 @@ ROOT_URLCONF = 'StudyBuddies.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["templates\StudyBuddies"],
+        'DIRS': ["templates/StudyBuddies",
+                 "users/templates/users" ],
         #'DIRS': [os.path.join(BASE_DIR,"templates")],
         'APP_DIRS': True,
         'OPTIONS': {

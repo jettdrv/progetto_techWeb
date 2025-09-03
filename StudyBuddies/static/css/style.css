@@ -6,16 +6,18 @@
 
 body {
     min-height: 100vh;
-    background-color: #347B98;
-    color: whitesmoke;
-    font-size: 3rem;
+    background-color:#EBF7D4;
+    color: #091D34;
+    font-size: 1rem;
 }
 
 nav {
     padding: 1rem;
-    background-color: #1A3E4C;
-    color: white;
+    background-color: #559E54;
+    color: #091D34;
     font-size: 1rem;
+    
+    
 }
 
 main {
@@ -38,7 +40,7 @@ p {
 }
 
 a {
-    color: #67AFCB;
+    color: #091D34;
     text-decoration: none;
    
 }
@@ -56,7 +58,7 @@ span {
 
 form.logout button.logout-button{  
     text-decoration: none;
-    color: #67AFCB;
+    color: #091D34;
     font-family:'Times New Roman', Times, serif;
     font-size: 1rem !important;
 }
@@ -88,13 +90,22 @@ img {
   margin: auto;
   width: 35%;
 }
+
+.label-b1{
+    margin-bottom: 37px;
+}
+
+.label-b2{
+    margin-bottom: 20px;
+
+}
 .buttoni-homepage{
     display: flex;
 
 }
 
 .btn-homepage-dashboard{
-    background-color:#092834;
+    background-color:#559E54;
     color: white;
     border:none;
     font-size: 1rem;
@@ -104,22 +115,23 @@ img {
     transition-duration: 0.4s;
 }
 .btn-homepage-dashboard:hover{
-    background-color: #67AFCB; 
+    background-color: #98CA32; 
     color: white;
 }
 .btn-homepage-register{
-    background-color:#092834;
+    background-color:#559E54;
+
     color: white;
     border:none;
     font-size: 1rem;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-    border-radius: 4px;
+    border-radius: 4px;   
     padding: 14px 40px;
     transition-duration: 0.4s;
 }
 
 .btn-homepage-register:hover{
-    background-color: #67AFCB; 
+    background-color: #98CA32; 
     color: white;
 }
 .banner {
@@ -198,3 +210,4 @@ p.tag-expertise{
     color:white;
     width: 75px;
 }
+

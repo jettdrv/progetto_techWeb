@@ -1,0 +1,30 @@
+/* dashboard stuff*/
+.side-nav {
+  height: 100%; 
+  width: 200px; 
+  position: fixed; 
+  z-index: 1; 
+  top: 1; 
+  margin-top: 0;
+  left: 0;
+  background-color: #1a2c41; 
+  overflow-x: hidden; 
+  padding-top: 20px;
+}
+
+.side-nav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #818181;
+  display: block;
+}
+
+
+.side-nav a:hover {
+  color: #f1f1f1;
+}
+.dashboard-main {
+  margin-left: 200px;  
+  padding: 20px;
+}
