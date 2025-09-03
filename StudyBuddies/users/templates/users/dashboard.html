@@ -1,28 +1,10 @@
 {% extends 'base.html' %}
+{% block title %}
+Dashboard
+{%endblock %}
 
 {% block content %}
 <h2>La tua Dashboard</h2>
-<form method="post" action="{% url 'study:add_session' %}">
-            {% csrf_token %}
-            <div class="mb-3">
-                <label for="subject" class="form-label">Materia/Argomento</label>
-                <input type="text" class="form-control" id="subject" name="subject" required placeholder="Es. Matematica, Python...">
-            </div>
-            <div class="mb-3">
-                <label for="duration" class="form-label">Durata (ore)</label>
-                <input type="number" class="form-control" id="duration" name="duration" step="0.5" min="0.5" required placeholder="Es. 1.5">
-            </div>
-            <div class="mb-3">
-                <label for="date" class="form-label">Data</label>
-                <input type="date" class="form-control" id="date" name="date" required value="{{ today }}">
-            </div>
-            <div class="mb-3">
-                <label for="notes" class="form-label">Note: </label>
-                <input type="text" class="form-control" id="notes" name="notes" >
-            </div>
-            <button type="submit" class="btn btn-success">Salva Sessione</button>
-        </form>
-    </div>
-</div>
-
+<a href="{% url 'study:add_session' %}"> Aggiungi Sessione ➕ </a>
+<a href="{% url 'study:session_list' %}">Visualizza le tue sessioni 📚</a> 
 {% endblock %}

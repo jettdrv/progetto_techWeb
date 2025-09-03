@@ -10,7 +10,7 @@ from .forms import CreateSessionForm
 
 @login_required
 def study_session_list(request):
-    sessions = StudySession.objects.filter(user=request.user).select_related('subject')
+    sessions = StudySession.objects.filter(user=request.user).select_related('user')
     '''
     # Filtri
     subject_filter = request.GET.get('subject')
@@ -34,7 +34,7 @@ def study_session_list(request):
         'total_hours': sessions.aggregate(total=Sum('duration'))['total'] or 0,
     }
     '''
-    return render(request, 'study/session_list.html')
+    return render(request, 'study/session_list.html', {"sessions" : sessions})
 
 @login_required
 def study_session_create(request):
@@ -45,11 +45,11 @@ def study_session_create(request):
             session.user = request.user
             session.save()
             messages.success(request, 'Sessione di studio aggiunta con successo!')
-            return redirect('users:dashboard')
+            return redirect('study:session_list')
     else:
         form = CreateSessionForm()
     
-    return render(request, 'users/dashboard.html', {'form': form, 'title': 'Aggiungi Sessione'})
+    return render(request, 'study/session_form.html', {'form': form, 'title': 'Aggiungi Sessione'})
 '''
 @login_required
 def study_session_edit(request, pk):
