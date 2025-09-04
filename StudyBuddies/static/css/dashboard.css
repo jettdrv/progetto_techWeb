@@ -79,3 +79,17 @@
     width: 50%;
     padding-top: 30px;
 }
+ 
+.bottone-esportazione {
+    background-color: #ff6666;
+    color:white;
+    font-size: 1rem;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    border-radius: 4px;
+    padding: 14px 40px;
+    transition-duration: 0.4s;
+}
+.bottone-esportazione:hover {
+    background-color: #ff9b9b; 
+    color: white;
+}
