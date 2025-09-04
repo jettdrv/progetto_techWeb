@@ -3,12 +3,7 @@
 Dashboard
 {%endblock %}
 
-
-
 {% block content %}
-
-
-
 
 <div class="side-nav">
     <a href="{% url 'study:add_session' %}"> Aggiungi Sessione ➕ </a>
@@ -16,12 +11,31 @@ Dashboard
     <a href="{% url 'users:profile' %}">Profilo 👤</a> 
 </div>
 
-<div class="dashboard-main">
-    <h2>La tua Dashboard</h2>
-</div>
+
 
 {% block dashboard_page %}
+<div class="dashboard-main">
+    <h2>La tua Dashboard</h2>
+    <div class="riepilogo">
+        <div class="riquadro1">
+            <p>Ore totali oggi</p>
+            <h3>{{hours_today_total}}</h3>
+        </div>
+        <div class="riquadro2">
+            <p>Ore totali questa settimana</p>
+            <h3>{{hours_weekly_total}}</h3>
+        </div>
+        <div class="riquadro3">
+            <p>Giorni consecutivi</p>
+            <h3>DA IMPLEMENTARE</h3>
+        </div>
+        <div class="riquadro4">
+            <p>Materia più studiata</p>
+            <h3>{{ favourite_subject.subject__name }}</h3>
+        </div>
 
+    </div>
+</div>
 {% endblock%}
 
 {% endblock %}

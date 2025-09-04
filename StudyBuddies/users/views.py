@@ -3,9 +3,13 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from .forms import CustomUserCreationForm
-from study.models import StudySession
+from study.models import StudySession, Subject
 from study.forms import CreateSessionForm
 from study.views import *
+from datetime import *
+from functools import reduce
+from django.db.models import Sum
+
 
 def register_view(request):
     if request.method == "POST":
@@ -36,11 +40,63 @@ def logout_view(request):
 
 @login_required
 def dashboard_view(request):
-    study_session_create(request)  #form per la creazione di una sessione di studio definita in study.forms
+    '''
+    total_sessions = StudySession.objects.filter(user=request.user).count()
+    total_hours = StudySession.objects.filter(user=request.user).aggregate(
+        total=Sum('duration')
+    )['total'] or 0
+    '''
+    user_sessions = StudySession.objects.filter(user=request.user).order_by('-date')
+    # Giornata
+    today_hours = user_sessions.filter(date=datetime.now().date()) 
+    hours_today_list = [t.duration for t in today_hours]
+    hours_today_total = reduce(lambda tot, d: tot + d, hours_today_list, 0)
     
+    # settimana
+    start_week=datetime.now().date() - timedelta(days = 7)
+    end_week = datetime.now().date() 
+    weekly_hours = user_sessions.filter(date__range = (start_week, end_week))
+    hours_weekly_list = [w.duration for w in weekly_hours]
+    hours_weekly_total = reduce(lambda tot, d: tot + d, hours_weekly_list, 0)
 
+    # Materia più studiata per la settimana
+    favourite_subject = weekly_hours.values('subject__name').annotate(h = Sum('duration')).order_by('-h').first()
 
-    return render(request, "users/dashboard.html")
+    '''
+    # Distribuzione per materia (per grafico a torta)
+    subject_distribution = StudySession.objects.filter(
+        user=request.user
+    ).values('subject__name').annotate(
+        hours=Sum('duration')
+    ).order_by('-hours')
+    
+    # Trend settimanale (per grafico a linee)
+    dates = []
+    hours_per_day = []
+    
+    for i in range(6, -1, -1):  # Ultimi 7 giorni
+        date = timezone.now().date() - timedelta(days=i)
+        daily_hours = StudySession.objects.filter(
+            user=request.user, 
+            date=date
+        ).aggregate(total=Sum('duration'))['total'] or 0
+        
+        dates.append(date.strftime('%d/%m'))
+        hours_per_day.append(float(daily_hours))
+    '''
+
+    context = {
+        #'total_sessions': total_sessions,
+        #'total_hours': total_hours,
+        'hours_weekly_total': hours_weekly_total,
+        'hours_today_total': hours_today_total,
+        'favourite_subject': favourite_subject,
+        #'subject_distribution': subject_distribution,
+        #'dates': dates,
+        #'hours_per_day': hours_per_day,
+    }
+    
+    return render(request, "users/dashboard.html", context)
 
 @login_required
 def profile_view(request):

@@ -28,3 +28,43 @@
   margin-left: 200px;  
   padding: 20px;
 }
+
+.riepilogo {
+    display: flex;
+    height: 120px;
+    
+}
+
+.riquadro1{
+    background-color:#ff6666;
+    width:25%;
+    text-align: center;
+    border-radius: 20px;
+    padding: 30px;
+    margin: 10px;
+    
+}
+.riquadro2{
+    background-color:#ffff66;
+    text-align: center;
+    width:25%;
+    border-radius: 20px;
+    padding: 30px;
+    margin: 10px;
+}
+.riquadro3{
+    background-color:#66ff66;
+    text-align: center;
+    width:25%;
+    border-radius: 20px;
+    padding: 30px;
+    margin: 10px;
+}
+.riquadro4{
+    background-color:#66ffd9;
+    text-align: center;
+    width:25%;
+    border-radius: 20px;
+    padding: 30px;
+    margin: 10px;
+}

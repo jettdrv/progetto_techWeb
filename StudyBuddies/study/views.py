@@ -46,14 +46,14 @@ def edit_study_session(request, pk):
     session = get_object_or_404(StudySession, pk=pk, user=request.user)
     
     if request.method == 'POST':
-        form = CreateSessionForm(request.POST, instance=session)
+        form = CreateSessionForm(request.POST, instance=session, user=request.user)
         if form.is_valid():
             print(form.cleaned_data)
-            form.save(commit=False)
+            form.save()
             messages.success(request, 'Sessione aggiornata con successo!')
             return redirect('study:session_list')
     else:
-        form = CreateSessionForm(instance=session)
+        form = CreateSessionForm(instance=session, user=request.user)
    
     return render(request, 'study/session_form.html', {'form': form, 'title': 'Modifica sessione'})
 
