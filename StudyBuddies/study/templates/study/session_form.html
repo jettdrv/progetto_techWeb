@@ -12,8 +12,8 @@ Aggiungi/Modifica Sessione
 <div class="dashboard-main">
         <form method="post">
             {% csrf_token %}
-            {{ form.as_p}}
-            <button type="submit" class="btn btn-success">Salva Sessione</button>
+            {{ form|crispy}}
+            <button type="submit"> Salva Sessione</button>
         </form>
     </div>
 
