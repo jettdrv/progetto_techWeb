@@ -69,6 +69,13 @@
     margin: 10px;
 }
 
+.grafici {
+    display: flex;
+}
 .torta {
     width: 50%;
+}
+.linee {
+    width: 50%;
+    padding-top: 30px;
 }
