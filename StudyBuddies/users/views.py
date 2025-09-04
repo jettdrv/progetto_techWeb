@@ -9,7 +9,7 @@ from study.views import *
 from datetime import *
 from functools import reduce
 from django.db.models import Sum
-
+import json
 
 def register_view(request):
     if request.method == "POST":
@@ -62,8 +62,21 @@ def dashboard_view(request):
     # Materia più studiata per la settimana
     favourite_subject = weekly_hours.values('subject__name').annotate(h = Sum('duration')).order_by('-h').first()
 
+    
+    # Dati grafico a torta
+    today_subjects = user_sessions.filter(date=datetime.now().date()).values('subject__name').annotate(h=Sum('duration'))
+    piechart_xvalues = [item['subject__name'] for item in today_subjects]
+    piechart_yvalues = [float(item['h']) for item in today_subjects]
+
+    print(today_subjects)
+    print(piechart_xvalues)
+    print(type(piechart_xvalues))
+    print(piechart_yvalues)
+    print(type(piechart_yvalues))
+
+
+   
     '''
-    # Distribuzione per materia (per grafico a torta)
     subject_distribution = StudySession.objects.filter(
         user=request.user
     ).values('subject__name').annotate(
@@ -91,7 +104,8 @@ def dashboard_view(request):
         'hours_weekly_total': hours_weekly_total,
         'hours_today_total': hours_today_total,
         'favourite_subject': favourite_subject,
-        #'subject_distribution': subject_distribution,
+        'piechart_xvalues': json.dumps(piechart_xvalues),
+        'piechart_yvalues': json.dumps(piechart_yvalues),
         #'dates': dates,
         #'hours_per_day': hours_per_day,
     }

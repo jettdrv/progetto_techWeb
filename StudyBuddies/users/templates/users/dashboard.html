@@ -11,8 +11,6 @@ Dashboard
     <a href="{% url 'users:profile' %}">Profilo 👤</a> 
 </div>
 
-
-
 {% block dashboard_page %}
 <div class="dashboard-main">
     <h2>La tua Dashboard</h2>
@@ -33,9 +31,48 @@ Dashboard
             <p>Materia più studiata</p>
             <h3>{{ favourite_subject.subject__name }}</h3>
         </div>
+    </div>
+    <div class="grafici">
+        <div class="torta">
+            
+            <canvas id="graficoTorta" ></canvas>
 
+        </div>
+        <div class="linee">
+            <canvas id="graficoLinee"></canvas>
+        </div>
     </div>
 </div>
+
+
+<!-- Codice grafici-->
+<script>
+
+var xValues = JSON.parse('{{ piechart_xvalues|escapejs }}');
+var yValues = JSON.parse('{{ piechart_yvalues|escapejs }}');
+var barColors = [
+  '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'
+]; 
+
+new Chart("graficoTorta", {
+    type: "pie",
+    data: {
+        labels: xValues,
+        datasets: [{
+      backgroundColor: barColors,
+      data: yValues
+    }]
+  },
+  options: {
+    title: {
+      display: true,
+      text: "Distribuzione giornaliera"
+      
+    }
+  }
+});
+   
+</script>
 {% endblock%}
 
 {% endblock %}
