@@ -8,6 +8,8 @@ urlpatterns = [
     path('sessions/add/', views.study_session_create, name='add_session'),
     path('sessions/<int:pk>/delete/', views.delete_study_session, name='delete_session'),
     path('sessions/<int:pk>/edit/', views.edit_study_session, name='edit_session'),
+    path('sessions/export', views.export_list, name='export_list'),
+
     
-    #path('statistics/', views.study_statistics, name='statistics'),
+    
 ]

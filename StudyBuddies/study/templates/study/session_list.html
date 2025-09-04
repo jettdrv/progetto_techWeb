@@ -7,6 +7,23 @@ Lista Sessioni
 {% block dashboard_page %}
 <div class="dashboard-main">
     <h5>Le tue Sessioni di Studio</h5>
+    <form method="GET" action="{% url 'study:session_list'%}" class="filtri">
+        <p> Materia: </p>
+        <select name="subjects">
+            <option value=""> Tutte le materie</option>
+            {% for s in subjects %}
+            <option value="{{s.id}}">
+                {% if request.GET.subject == s.id|stringformat:"s" %}selected{% endif%}
+                {{s.name}}
+            </option>
+            {%endfor%}
+        </select>
+        <p>Data: </p>
+        <input type="date" name="date" value="{{request.GET.data}}">
+        <button type="submit"> Applica filtri</button>
+        <a href="{% url 'study:session_list' %}">Annulla</a>
+    </form>
+
         {% if sessions %}
             <div class="list-group">
                 {% for session in sessions %}
@@ -29,10 +46,13 @@ Lista Sessioni
             <p>Non hai ancora registrato sessioni di studio. Inizia ora!</p>
         {% endif %}
    <div>
-    <a href="{% url 'study:add_session' %}"> Aggiungi Sessione ➕ </a>
+    <a href="{% url 'study:add_session' %}"> Aggiungi Sessione  </a>
    </div> 
    <div>
     <a href="{% url 'users:dashboard' %}"> Oppure ritorna alla dashboard </a>
+   </div> 
+   <div>
+    <a href="{% url 'study:export_list' %}?subjects={{request.GET.subjects}}&date={{request.GET.date}}"> Esporta su PDF </a>
    </div> 
 </div>
 {% endblock %}
