@@ -1,0 +1,31 @@
+{% extends 'dashboard.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title%}
+    Aggiorna l'immagine del profilo
+{% endblock %}    
+{% block dashboard_page %}
+<div class="dashboard-main ">
+    {%if user.profile_picture %}
+        <img src="{{user.profile_picture.url}}" alt="Immagine di profilo" class="circle" >
+    {% else %}
+        {{ user.username|first|upper}}
+    {% endif %}
+
+    <div>
+        <h4>Cambia immagine di profilo</h4>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit">Salva</button>
+            <a href="{% url 'users:profile' %}">Annulla </a>
+        </form>
+    </div>
+
+    <div>
+        <p>Oppure elimina l'immagine corrente</p>
+        <a href="{% url 'users:delete_pfp' %}" >Elimina Immagine di Profilo</a>
+    </div>
+</div>
+{% endblock %}

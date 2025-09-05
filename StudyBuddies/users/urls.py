@@ -10,6 +10,8 @@ urlpatterns = [
     path('dashboard/', views.dashboard_view, name="dashboard"),
     path('profile/', views.profile_view, name="profile"),
     path('export-pdf/', views.export_pdf, name="export"),
+    path('profile/updatePFP/', views.profile_picture_update, name="update_pfp"),
+    path('profile/deletePFP/', views.profile_picture_delete, name="delete_pfp"),
 
 
 ]

@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import FileResponse
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, ProfilePictureForm
 from study.models import StudySession, Subject
 from study.forms import CreateSessionForm
 from study.views import *
@@ -16,6 +16,7 @@ from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import mm 
 from reportlab.lib import colors 
 from io import BytesIO
+import os
 
 #-------------------------FUNZIONI DI SERVIZIO---------------------------------
 def calculate_today_hours(sessions):
@@ -152,4 +153,36 @@ def export_pdf(request):
     buffer.seek(0)
     return FileResponse(buffer, as_attachment=True, filename ="report_studio.pdf")
 
+@login_required
+def profile_picture_update(request):
+    if request.method =='POST':
+
+        form = ProfilePictureForm(request.POST, request.FILES, instance = request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Immagine profilo cambiata con successo')
+            return redirect('users:profile')
+        else:
+            messages.error(request, 'errore' + str(form.errors))
+    else:
+        form = ProfilePictureForm(instance=request.user)
+    return render(request, 'users/updatePFP.html', {'form':form})
+
+@login_required
+def profile_picture_delete(request):
+    user = request.user
+    
+    if request.method == 'POST':
+        if user.profile_picture and user.profile_picture != '/pfp/nopfp.jpg':
+            if os.path.isfile(user.profile_picture.path):
+                os.remove(user.profile_picture.path)
+
+            user.profile_picture='/pfp/nopfp.jpg'
+            user.save()
+
+            messages.success(request, 'immagine di profilo rimossa')
+        else:
+            messages.info(request, 'non hai una immagine di profilo')
+        return redirect('users:profile')
+    return render(request, 'users/deletePFP.html')
 
