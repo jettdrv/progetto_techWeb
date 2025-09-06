@@ -19,9 +19,14 @@ from io import BytesIO
 import os
 
 #-------------------------FUNZIONI DI SERVIZIO---------------------------------
+def calculate_day_hours(sessions, day):
+    day_sessions = sessions.filter(date=day)
+    day_hours = day_sessions.aggregate(total=Sum('duration'))['total'] or 0
+    return day_hours
+
 def calculate_today_hours(sessions):
-    today_sessions = sessions.filter(date=datetime.today())
-    today_hours = today_sessions.aggregate(total=Sum('duration'))['total'] or 0
+    day = datetime.today().date()
+    today_hours = calculate_day_hours(sessions, day)
     return today_hours
 
 def weekly_hours(sessions):
@@ -51,6 +56,15 @@ def daily_goal_progress(user, sessions):
         'percentage': min(100, (float(today_hours) / float(user.daily_goal_hours)) * 100) if user.daily_goal_hours > 0 else 0,
         'completed': today_hours >= user.daily_goal_hours
     }
+def goal_progress_any_day(user, sessions, day):
+    day_hours = calculate_day_hours(sessions, day)
+    return {
+        'current': day_hours,
+        'target': user.daily_goal_hours,
+        'percentage': min(100, (float(day_hours) / float(user.daily_goal_hours)) * 100) if user.daily_goal_hours > 0 else 0,
+        'completed': day_hours >= user.daily_goal_hours
+    }
+
     
 def weekly_goal_progress(user, sessions):
     weekly_hours = calculate_week_hours(sessions)
@@ -61,6 +75,18 @@ def weekly_goal_progress(user, sessions):
         'percentage': min(100, (float(weekly_hours) / float(user.weekly_goal_hours)) * 100) if user.weekly_goal_hours > 0 else 0,
         'completed': weekly_hours >= user.weekly_goal_hours
     }
+
+def streak(user, sessions):
+    streak = 0;
+    today = datetime.today().date()
+    for i in range(365):
+        day = today - timedelta(days=i)
+        print(day)
+        if goal_progress_any_day(user, sessions, day)['completed']:
+            streak = streak + 1
+        else:
+            break
+    return streak
 
 
 #--------------------View DASHBOARD----------------------------------------------
@@ -101,6 +127,8 @@ def dashboard_view(request):
     hours_weekly_total = calculate_week_hours(user_sessions)
     # Materia più studiata per la settimana
     favourite_subject = most_studied(user_sessions)
+    #streak
+    streak_count = streak(request.user, user_sessions)
 
     # Dati grafico a torta
     today_subjects = user_sessions.filter(date=datetime.now().date()).values('subject__name').annotate(h=Sum('duration'))
@@ -118,12 +146,12 @@ def dashboard_view(request):
     #dati grafici obiettivi
     daily = daily_goal_progress(request.user, user_sessions)
     weekly = weekly_goal_progress(request.user, user_sessions)
-
     
     context = {
         'hours_weekly_total': hours_weekly_total,
         'hours_today_total': hours_today_total,
         'favourite_subject': favourite_subject,
+        'streak_count': streak_count,
         'piechart_xvalues': json.dumps(piechart_xvalues),
         'piechart_yvalues': json.dumps(piechart_yvalues),
         'line_graphx': json.dumps(line_graphx),
