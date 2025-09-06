@@ -12,6 +12,7 @@ urlpatterns = [
     path('export-pdf/', views.export_pdf, name="export"),
     path('profile/updatePFP/', views.profile_picture_update, name="update_pfp"),
     path('profile/deletePFP/', views.profile_picture_delete, name="delete_pfp"),
+    path('profile/set-goal/', views.set_goal, name="set_goal"),
 
 
 ]

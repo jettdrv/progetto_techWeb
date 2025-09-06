@@ -43,9 +43,7 @@ def user_search(request):
 
     if query:
         users = users.filter(
-            Q(username__contains=query) |
-            Q(email__contains=query)|
-            Q(expertise_field__contains=query)
+            Q(username__contains=query) 
         )
 
     for user in users:

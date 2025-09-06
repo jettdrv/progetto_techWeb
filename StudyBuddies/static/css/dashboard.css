@@ -79,6 +79,18 @@
     width: 50%;
     padding-top: 30px;
 }
+
+.goal-progression{
+    display:flex;
+}
+.daily{
+    width: 50%;
+    padding-top: 30px;
+}
+.weekly{
+    width: 50%;
+    padding-top: 30px;
+}
  
 .bottone-esportazione {
     background-color: #ff6666;

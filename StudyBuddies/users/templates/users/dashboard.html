@@ -32,9 +32,17 @@ Dashboard
             <h3>{{ favourite_subject.subject__name }}</h3>
         </div>
     </div>
+
+    <div class="goal-progression">
+        <div class="daily">
+            <canvas id="dailyGraph" ></canvas>
+        </div>
+        <div class="weekly">
+            <canvas id="weeklyGraph"></canvas>
+        </div>
+    </div>
     <div class="grafici">
         <div class="torta">
-            
             <canvas id="graficoTorta" ></canvas>
         </div>
         <div class="linee">
@@ -75,9 +83,8 @@ new Chart("graficoTorta", {
     }
   }
 });
-
-const xLineValues = JSON.parse('{{ line_graphx|escapejs }}');
-const yLineValues = JSON.parse('{{ line_graphy|escapejs }}');
+xLineValues = JSON.parse('{{ line_graphx|escapejs }}');
+yLineValues = JSON.parse('{{ line_graphy|escapejs }}');
 
 
 new Chart("graficoLinee", {
@@ -96,6 +103,54 @@ new Chart("graficoLinee", {
     legend: {display: false},
     scales: {
       yAxes: [{ticks: {min: 0, max:10}}],
+    }
+  }
+});
+
+
+var dailyCurrent = JSON.parse('{{ daily_current|escapejs }}');
+var dailyRemaining = JSON.parse('{{ daily_remaining|escapejs}}'); 
+
+var barColorsD = [
+  '#FF6384', '#36A2EB'
+]; 
+
+new Chart("dailyGraph", {
+    type: "doughnut",
+    data: {
+        labels: ['completed', 'remaining'],
+        datasets: [{
+      backgroundColor: barColorsD,
+      data: [dailyCurrent, dailyRemaining],
+    }]
+  },
+  options: {
+    title: {
+      display: true,
+      text: "Progresso giornaliero"
+      
+    }
+  }
+});
+   
+var weeklyCurrent = JSON.parse('{{ weekly_current|escapejs }}');
+var weeklyRemaining = JSON.parse('{{ weekly_remaining|escapejs}}'); 
+
+
+new Chart("weeklyGraph", {
+    type: "doughnut",
+    data: {
+        labels: ['completed', 'remaining'],
+        datasets: [{
+      backgroundColor: barColorsD,
+      data: [weeklyCurrent, weeklyRemaining],
+    }]
+  },
+  options: {
+    title: {
+      display: true,
+      text: "Progresso settimanale"
+      
     }
   }
 });

@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import FileResponse
-from .forms import CustomUserCreationForm, ProfilePictureForm
+from .forms import CustomUserCreationForm, ProfilePictureForm, GoalSettingsForm
 from study.models import StudySession, Subject
 from study.forms import CreateSessionForm
 from study.views import *
@@ -20,10 +20,9 @@ import os
 
 #-------------------------FUNZIONI DI SERVIZIO---------------------------------
 def calculate_today_hours(sessions):
-    today_hours = sessions.filter(date=datetime.now().date()) 
-    hours_today_list = [t.duration for t in today_hours]
-    hours_today_total = reduce(lambda tot, d: tot + d, hours_today_list, 0)
-    return hours_today_total
+    today_sessions = sessions.filter(date=datetime.today())
+    today_hours = today_sessions.aggregate(total=Sum('duration'))['total'] or 0
+    return today_hours
 
 def weekly_hours(sessions):
     start_week=datetime.now().date() - timedelta(days = 7)
@@ -41,6 +40,27 @@ def most_studied(sessions):
     weekly_h = weekly_hours(sessions)
     fav_subject = weekly_h.values('subject__name').annotate(h = Sum('duration')).order_by('-h').first()
     return fav_subject
+
+
+def daily_goal_progress(user, sessions):
+    today_hours = calculate_today_hours(sessions)
+
+    return {
+        'current': today_hours,
+        'target': user.daily_goal_hours,
+        'percentage': min(100, (float(today_hours) / float(user.daily_goal_hours)) * 100) if user.daily_goal_hours > 0 else 0,
+        'completed': today_hours >= user.daily_goal_hours
+    }
+    
+def weekly_goal_progress(user, sessions):
+    weekly_hours = calculate_week_hours(sessions)
+        
+    return {
+        'current': weekly_hours,
+        'target': user.weekly_goal_hours,
+        'percentage': min(100, (float(weekly_hours) / float(user.weekly_goal_hours)) * 100) if user.weekly_goal_hours > 0 else 0,
+        'completed': weekly_hours >= user.weekly_goal_hours
+    }
 
 
 #--------------------View DASHBOARD----------------------------------------------
@@ -95,7 +115,11 @@ def dashboard_view(request):
         hour = user_sessions.filter(date=d).aggregate(total=Sum('duration'))['total'] or 0
         line_graphx.append(d.strftime('%d %m'))
         line_graphy.append(float(hour))
+    #dati grafici obiettivi
+    daily = daily_goal_progress(request.user, user_sessions)
+    weekly = weekly_goal_progress(request.user, user_sessions)
 
+    
     context = {
         'hours_weekly_total': hours_weekly_total,
         'hours_today_total': hours_today_total,
@@ -104,11 +128,31 @@ def dashboard_view(request):
         'piechart_yvalues': json.dumps(piechart_yvalues),
         'line_graphx': json.dumps(line_graphx),
         'line_graphy': json.dumps(line_graphy),
+        'daily_current': json.dumps(float(daily['current'])),
+        'daily_remaining': json.dumps(float(max(daily['target'] - daily['current'], 0))),
+        'weekly_current': json.dumps(float(weekly['current'])),
+        'weekly_remaining': json.dumps(float(max(weekly['target'] - weekly['current'] , 0))),
     }
     return render(request, "users/dashboard.html", context)
 
 @login_required
+def set_goal(request):
+
+    if request.method=='POST':
+        form = GoalSettingsForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'obiettivo aggiunto')
+            return redirect('users:profile')
+        
+    else:
+        form = GoalSettingsForm(instance=request.user)
+    return render(request, 'users/set_goal.html', {'form':form})
+
+
+@login_required
 def profile_view(request):
+
     return render(request, "users/profile.html")
 
 

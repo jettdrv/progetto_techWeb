@@ -12,6 +12,14 @@ class CustomUserCreationForm(UserCreationForm):
         super().__init__(*args, **kwargs)
         self.fields['expertise_field'].required = False
 
+class GoalSettingsForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ['daily_goal_hours', 'weekly_goal_hours']
+        labels = {'daily_goal_hours': 'Obiettivo giornaliero', 'weekly_goal_hours': 'Obiettivo settimanale'}
+
+        widgets = {'daily_goal_hours': forms.NumberInput(attrs={'step': '0.5', 'min': '0.0', 'max': '24'}), 'weekly_goal_hours': forms.NumberInput(attrs={'step': '1', 'min': '0.0', 'max': '168'})}   
+
 class ProfilePictureForm(forms.ModelForm):
     class Meta:
         model = CustomUser

@@ -3,8 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import JsonResponse
 from django.db.models import Sum, Count
-from datetime import datetime
-from datetime import timedelta
+from django.utils import timezone
+from datetime import datetime, timedelta
 from .models import StudySession, Subject
 from .forms import CreateSessionForm
 from reportlab.pdfgen import canvas
@@ -25,6 +25,8 @@ def filter_sessions(user, req):
 
     return user_sessions
 
+
+#-------------View principali---------------------------------
 @login_required
 def study_session_list(request):
     user_sessions = filter_sessions(request.user, request.GET)

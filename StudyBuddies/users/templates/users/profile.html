@@ -26,6 +26,8 @@
 {% if user.bio %}
 <p><strong>Bio:</strong> {{ user.bio }}</p>
 {% endif %}
+<a href="{% url 'users:set_goal' %}"> Imposta obiettivi</a>
+
 <!--<a href="#" >Modifica Profilo</a>-->
 </div>
 {% endblock %}
