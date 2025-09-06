@@ -1,0 +1,29 @@
+{% extends "users/dashboard.html" %}
+
+{%block title%}
+Lista gruppi
+{% endblock %}
+
+{% block content%}
+{%block dashboard%}
+<h3>Gruppi di studio</h3>
+
+
+{%if groups%}
+    {% for group in groups %}
+    <div class="group-card">
+        <a href="{% url 'groups:group_details' group_id %}">{{ group.name }}</a>
+        <p>{{ group.description }}</p>
+        <span class="privacy-badge">{{ group.privacy}}</span>
+        <a href="{% url 'groups:group_detail' group.id %}">Entra</a>
+    </div>
+    {% endfor %}
+{% else %}
+    <h4>Nessun gruppo disponibile</h4>
+    <a href="{% url 'groups:create_group' %}">Crea un nuovo gruppo</a>
+{% endif %}
+
+
+{%endblock%}
+{%endblock%}
+
