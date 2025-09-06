@@ -5,7 +5,6 @@ Crea Gruppo
 {% endblock %}
 
 {% block content%}
-{%block dashboard%}
 <h2>Crea un nuovo gruppo</h2>
 <form method="post">
   {% csrf_token %}
@@ -13,6 +12,5 @@ Crea Gruppo
   <button type="submit">Crea</button>
 </form>
 
-{%endblock%}
 {%endblock%}
 

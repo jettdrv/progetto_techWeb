@@ -5,13 +5,6 @@ Dashboard
 
 {% block content %}
 
-<div class="side-nav">
-    <a href="{% url 'study:add_session' %}"> Aggiungi Sessione ➕ </a>
-    <a href="{% url 'study:session_list' %}">Visualizza le tue sessioni 📚</a> 
-    <a href="{% url 'users:profile' %}">Profilo 👤</a> 
-</div>
-
-{% block dashboard_page %}
 <div class="dashboard-main">
     <h2>La tua Dashboard</h2>
     <div class="riepilogo">
@@ -51,9 +44,10 @@ Dashboard
     </div>
     
      <div>
-        <a href="{% url 'users:export' %}" class="bottone-esportazione"> Scarica i dati </a> 
+        <a href="{% url 'users:export' %}" class="main-buttons"> Scarica i dati </a> 
     </div>
 </div>
+
 
 
 
@@ -156,6 +150,4 @@ new Chart("weeklyGraph", {
 });
    
 </script>
-{% endblock%}
-
 {% endblock %}

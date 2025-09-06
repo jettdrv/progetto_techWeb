@@ -6,28 +6,38 @@
     Profilo
 {% endblock %}
 
-{% block dashboard_page %}
+{% block content %}
 <div class="dashboard-main">
-{%if user.profile_picture %}
-    <img src="{{user.profile_picture.url}}" alt="Immagine di profilo" class="circle" >
-{% else %}
-    {{ user.username|first|upper}}
-{% endif %}
-<a href="{% url 'users:update_pfp' %}" >Modifica Immagine di Profilo</a>
-
-<h4>{{ user.username }}</h4>
-<p class="tag-professional">{{ user.get_user_type_display }}</p>
-                {% if user.is_professional %}
-                
-                   <p class="tag-expertise">{{ user.expertise_field }}</p>
-                {% endif %}
-<h6>Informazioni Profilo</h6>
-<p><strong>Email:</strong> {{ user.email }}</p>
-{% if user.bio %}
-<p><strong>Bio:</strong> {{ user.bio }}</p>
-{% endif %}
-<a href="{% url 'users:set_goal' %}"> Imposta obiettivi</a>
-
-<!--<a href="#" >Modifica Profilo</a>-->
-</div>
+    <div class="profile-main">
+        <div class="profile-pfp">
+            {%if user.profile_picture %}
+                <img src="{{user.profile_picture.url}}" alt="Immagine di profilo" class="circle" >
+            {% endif %}
+            <div style="margin:30px; float: right;">
+            <a href="{% url 'users:update_pfp' %}" class="main-buttons">Modifica Immagine di Profilo</a>
+            </div>
+        </div>
+        <div class="profile-info">
+        <h4 class="username-profile">{{ user.username }}</h4>
+        <p class="tag-professional">{{ user.get_user_type_display }}</p>
+                        {% if user.is_professional %}
+                        
+                        <p class="tag-expertise">{{ user.expertise_field }}</p>
+                        {% endif %}
+        <h6>Informazioni Profilo</h6>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        {% if user.bio %}
+        <p><strong>Bio:</strong> {{ user.bio }}</p>
+        {% endif %}
+        </div>
+        <div style="margin-top: 10px; margin-left: 310px;">
+        <a href="{% url 'users:set_goal' %}" class="main-buttons"> Imposta obiettivi</a>
+        </div>
+        </div>
+        <!--<a href="#" >Modifica Profilo</a>-->
+        
+    </div>
+    <div class="friend-list">
+        <a href="{% url 'social:friends' %}" class="main-buttons">I tuoi amici</a>
+    </div>
 {% endblock %}

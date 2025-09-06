@@ -5,8 +5,8 @@ from .forms import *
 
 @login_required
 def group_list(request):
-    groups = StudyGroup.objects.filter(memberships__user = request.user)
-    public_groups = StudyGroup.objects.filter(privacy = 'public').exclude(memberships__user = request.user)
+    groups = StudyGroup.objects.filter(groupmembership__user = request.user)
+    public_groups = StudyGroup.objects.filter(privacy = 'public').exclude(groupmembership__user = request.user)
     return render(request, 'groups/group_list.html', {'groups': groups, 'public_groups': public_groups})
 
 @login_required

@@ -195,7 +195,8 @@ def export_pdf(request):
     ore_settimana = calculate_week_hours(user_sessions)
 
     sub = most_studied(user_sessions)['subject__name']
-    
+    streak_count = streak(request.user, user_sessions)
+
     buffer = BytesIO()
     p = canvas.Canvas(buffer, pagesize=A4)
     width, height = A4
@@ -217,6 +218,11 @@ def export_pdf(request):
     p.drawString(50, height-160, "Materia più studiata")
     p.setFont("Helvetica", 12)
     p.drawString(230, height-160, f"-({first_day_week}-{date_today}) : {sub}")
+
+    p.setFont("Helvetica-Bold", 12)
+    p.drawString(50, height-180, "Giorni consecutivi")
+    p.setFont("Helvetica", 12)
+    p.drawString(230, height-180, f"- : {streak_count}")
 
 
     #da implementare altre statistiche come la media settimanale

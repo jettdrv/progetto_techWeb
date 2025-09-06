@@ -1,61 +1,62 @@
 {% extends "users/dashboard.html" %}
 
-
 {%block title%}
-Crea Gruppo
+Dettagli gruppo
 {% endblock %}
 
 {% block content %}
-{% block dashboard %}
-<!-- FORM PER CREARE NUOVA DISCUSSIONE -->
-<div class="add-discussion">
-    <h3>Nuova Discussione</h3>
-    <form method="post" action="{% url 'groups:add_discussion' group.id %}">
-        {% csrf_token %}
-        {{ discussion_form.as_p }}
-        <button type="submit">Pubblica</button>
-    </form>
-</div>
+<div class="group-details-container">
 
-<hr>
-<h3>Discussioni</h3>
-{% for d in discussions %}
-<div class="discussion-block">
-    <div class="post-heading">
-        <p><b>{{ d.creator.username }} - {{ d.creator.get_user_type_display }}</b></p>
-        {% if d.creator.is_professional %}
-        <p class="tag-expertise">{{ d.creator.expertise_field }}</p>
-        {% endif %}
-        <small>{{ d.created_at }}</small>
-    </div>
-    <div class="post-content">
-        <p>{{ d.content }}</p>
+    <div class="add-discussion">
+        <h3>Nuova Discussione</h3>
+        <form method="post" action="{% url 'groups:add_discussion' group.id %}">
+            {% csrf_token %}
+            {{ discussion_form.as_p }}
+            <button type="submit">Pubblica</button>
+        </form>
     </div>
 
-    <h4>Commenti</h4>
-    <div class="comments">
-        <ul>
-        {% for comment in d.comments.all %}
-            <li>
-                <b>{{ comment.creator.username }}</b>: {{ comment.content }}
-                <small>{{ comment.created_at }}</small>
-            </li>
+    <hr>
+    <div class="old-discussion">
+        <h3>Discussioni</h3>
+        {% for d in discussions %}
+        <div class="discussion-block">
+            <div class="post-heading">
+                <p><b>{{ d.creator.username }} - {{ d.creator.get_user_type_display }}</b></p>
+                {% if d.creator.is_professional %}
+                <p class="tag-expertise">{{ d.creator.expertise_field }}</p>
+                {% endif %}
+                <small>{{ d.created_at }}</small>
+            </div>
+            <div class="post-content">
+                <p>{{ d.content }}</p>
+            </div>
+
+            <h4>Commenti</h4>
+            <div class="comments">
+                {% for comment in d.comments.all %}
+                        <small><b>{{ comment.creator.username }}</b>:</small> 
+                        <small>{{ comment.created_at }}</small>
+                    <div class="comment-content">
+                        {{ comment.content }}
+                    </div>
+                {% empty %}
+                        Nessun commento
+                {% endfor %}
+            </div>
+
+            <form method="post" action="{% url 'groups:add_comment' d.id %}">
+                {% csrf_token %}
+                {{ comment_form.as_p }}
+                <button type="submit">Commenta</button>
+            </form>
+        </div>
         {% empty %}
-            <li>Nessun commento</li>
-        {% endfor %}
-        </ul>
+        <p>Nessuna discussione ancora.</p>
     </div>
-
-    <form method="post" action="{% url 'groups:add_comment' d.id %}">
-        {% csrf_token %}
-        {{ comment_form.as_p }}
-        <button type="submit">Commenta</button>
-    </form>
 </div>
-{% empty %}
-<p>Nessuna discussione ancora.</p>
 {% endfor %}
 
 {% endblock %}
-{% endblock %}
+
 

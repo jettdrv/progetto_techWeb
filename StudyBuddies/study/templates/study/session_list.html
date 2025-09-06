@@ -4,55 +4,54 @@
 Lista Sessioni
 {% endblock %}
 
-{% block dashboard_page %}
+{% block content %}
 <div class="dashboard-main">
-    <h5>Le tue Sessioni di Studio</h5>
-    <form method="GET" action="{% url 'study:session_list'%}" class="filtri">
-        <p> Materia: </p>
-        <select name="subjects">
-            <option value=""> Tutte le materie</option>
-            {% for s in subjects %}
-            <option value="{{s.id}}">
-                {% if request.GET.subject == s.id|stringformat:"s" %}selected{% endif%}
-                {{s.name}}
-            </option>
-            {%endfor%}
-        </select>
-        <p>Data: </p>
-        <input type="date" name="date" value="{{request.GET.data}}">
-        <button type="submit"> Applica filtri</button>
-        <a href="{% url 'study:session_list' %}">Annulla</a>
-    </form>
-
-        {% if sessions %}
-            <div class="list-group">
-                {% for session in sessions %}
-                    <div class="session">
-                        <strong>{{ session.subject }}</strong> - 
-                        {{ session.duration }} ore - 
-                        <small >{{ session.date }}</small>
-                         <form method="post" action="{% url 'study:delete_session' session.pk %}" style="display:inline;">
-                        {% csrf_token %}
-                        <button type="submit">Elimina</button>
-                        </form> 
-                        <form method="post" action="{% url 'study:edit_session' session.pk %}" style="display:inline;">
-                        {% csrf_token %}
-                        <button type="submit">Modifica</button>
-                        </form> 
-                    </div>    
-                {% endfor %}
-            </div>
-        {% else %}
-            <p>Non hai ancora registrato sessioni di studio. Inizia ora!</p>
-        {% endif %}
-   <div>
-    <a href="{% url 'study:add_session' %}"> Aggiungi Sessione  </a>
-   </div> 
-   <div>
-    <a href="{% url 'users:dashboard' %}"> Oppure ritorna alla dashboard </a>
-   </div> 
-   <div>
-    <a href="{% url 'study:export_list' %}?subjects={{request.GET.subjects}}&date={{request.GET.date}}"> Esporta su PDF </a>
+    <div class="session-list">
+        <h3>Le tue Sessioni di Studio</h3>
+        <div class="form-filters">
+            <form method="GET" action="{% url 'study:session_list'%}" class="filtri">
+                <p> Materia: </p>
+                <select name="subjects">
+                    <option value=""> Tutte le materie</option>
+                    {% for s in subjects %}
+                    <option value="{{s.id}}">
+                        {% if request.GET.subject == s.id|stringformat:"s" %}selected{% endif%}
+                        {{s.name}}
+                    </option>
+                    {%endfor%}
+                </select>
+                
+                <p>Data: </p>
+                <input type="date" name="date" value="{{request.GET.data}}">
+                <button type="submit"> Applica filtri</button>
+                <a href="{% url 'study:session_list' %}">Annulla</a>
+            </form>
+        </div>
+            {% if sessions %}
+                <div class="list-session-group">
+                    {% for session in sessions %}
+                        <div class="session">
+                            <strong>{{ session.subject }}</strong> - 
+                            {{ session.duration }} ore - 
+                            <small >{{ session.date }}</small>
+                            <form method="post" action="{% url 'study:delete_session' session.pk %}" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit">Elimina</button>
+                            </form> 
+                            <form method="post" action="{% url 'study:edit_session' session.pk %}" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit">Modifica</button>
+                            </form> 
+                        </div>    
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>Non hai ancora registrato sessioni di studio. Inizia ora!</p>
+            {% endif %}
+    </div>
+   <div class="session-list-buttons">
+    <a href="{% url 'study:add_session' %}" class="main-buttons"> Aggiungi Sessione  </a>
+    <a href="{% url 'study:export_list' %}?subjects={{request.GET.subjects}}&date={{request.GET.date}}" class="main-buttons"> Esporta su PDF </a>
    </div> 
 </div>
 {% endblock %}

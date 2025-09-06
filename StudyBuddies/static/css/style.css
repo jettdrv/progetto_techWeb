@@ -6,18 +6,16 @@
 
 body {
     min-height: 100vh;
-    background-color:#EBF7D4;
+    background-color:#c9f3df;
     color: #091D34;
     font-size: 1rem;
 }
 
 nav {
     padding: 1rem;
-    background-color: #559E54;
+    background-color: #549e94;
     color: #091D34;
     font-size: 1rem;
-    
-    
 }
 
 main {
@@ -60,15 +58,19 @@ form.logout button.logout-button{
     text-decoration: none;
     color: #091D34;
     font-family:'Times New Roman', Times, serif;
+    font-weight: bold;
     font-size: 1rem !important;
 }
 
 .logout-button:hover{
     opacity: .85;
 }
+.nav-button{
+    font-weight:bold;
+}
 
 .homepage-main{
-    display: block;
+  display: block;
   max-width: fit-content;
   margin-left: auto;
   margin-right: auto;
@@ -101,11 +103,10 @@ img {
 }
 .buttoni-homepage{
     display: flex;
-
 }
 
 .btn-homepage-dashboard{
-    background-color:#559E54;
+    background-color:#49856c;
     color: white;
     border:none;
     font-size: 1rem;
@@ -115,11 +116,11 @@ img {
     transition-duration: 0.4s;
 }
 .btn-homepage-dashboard:hover{
-    background-color: #98CA32; 
+    background-color: #2dab8b; 
     color: white;
 }
 .btn-homepage-register{
-    background-color:#559E54;
+    background-color:#49856c;
 
     color: white;
     border:none;
@@ -131,7 +132,7 @@ img {
 }
 
 .btn-homepage-register:hover{
-    background-color: #98CA32; 
+    background-color: #2dab8b; 
     color: white;
 }
 .banner {
@@ -139,6 +140,7 @@ img {
     width: 100%;
     max-width: 800px;
 }
+/*----------------------------------------------------------------------*/
 
 .form-with-validation {
     max-width: 600px;
@@ -197,11 +199,6 @@ img {
 
 .logout-button:hover {
     opacity: .85;
-}
-.circle {
-    border-radius: 50%;
-    width:150px;
-    height: 150px;
 }
 
 p.tag-expertise{

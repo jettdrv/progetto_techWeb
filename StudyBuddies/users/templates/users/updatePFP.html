@@ -5,27 +5,31 @@
 {% block title%}
     Aggiorna l'immagine del profilo
 {% endblock %}    
-{% block dashboard_page %}
-<div class="dashboard-main ">
-    {%if user.profile_picture %}
-        <img src="{{user.profile_picture.url}}" alt="Immagine di profilo" class="circle" >
-    {% else %}
-        {{ user.username|first|upper}}
-    {% endif %}
+{% block content %}
+<div class="update-pfp-container ">
+    <div class="profile-img-block">
+        {%if user.profile_picture %}
+            <img src="{{user.profile_picture.url}}" alt="Immagine di profilo" class="circle" >
+        {% else %}
+            {{ user.username|first|upper}}
+        {% endif %}
+    </div>
 
-    <div>
+    <div class="form-change-pfp">
         <h4>Cambia immagine di profilo</h4>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form|crispy }}
             <button type="submit">Salva</button>
-            <a href="{% url 'users:profile' %}">Annulla </a>
+            
         </form>
     </div>
-
-    <div>
-        <p>Oppure elimina l'immagine corrente</p>
-        <a href="{% url 'users:delete_pfp' %}" >Elimina Immagine di Profilo</a>
+<p>Oppure elimina l'immagine corrente</p>
+    <div class="delete-pfp">
+        
+        <a href="{% url 'users:delete_pfp' %}"  class="main-buttons">Elimina </a>
+        <a href="{% url 'users:profile' %}" class="main-buttons">Annulla </a>
+        
     </div>
 </div>
 {% endblock %}

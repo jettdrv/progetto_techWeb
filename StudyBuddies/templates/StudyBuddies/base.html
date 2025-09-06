@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-{% load static%}
+{% load static %}
+
 <html lang="it">
 <head>
     <meta charset="UTF-8">
@@ -13,29 +14,48 @@
     <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"> </script>
-
-    <!--<script src="{% static 'js/main.js' %}" defer> </script>-->
     
 <body>
     <nav> 
-        <a href="/" >Home</a> | 
-        <a href="{% url 'users:register' %}" >Sign up</a> | 
-        <a href="{% url 'users:login' %}" >Login</a> | 
+        <a href="/" class="nav-button">Home</a> |
+        {% if user.is_authenticated %} 
+        <a href="{% url 'users:dashboard' %}" class="nav-button">Dashboard</a> | 
+        <a href="{% url 'study:session_list' %}" class="nav-button">Sessioni di studio</a> | 
+        <a href="{% url 'groups:group_list' %}" class="nav-button">Gruppi</a> | 
+        <a href="{% url 'social:user_search' %}" class="nav-button">Cerca</a> | 
+        <a href="{% url 'users:profile' %}" class="nav-button">Profilo</a> | 
+        
         <form class="logout" action="{% url 'users:logout' %}" method="post"> 
             {% csrf_token%}
             <button class="logout-button" title="user-logout"> Logout</button>
 
         </form>
-       
+        {% else %}
+            <a href="{% url 'users:login' %}" class="nav-button">Entra</a> | 
+            <a href="{% url 'users:register' %}" class="nav-button-">Registrati</a> | 
+        {% endif %}
     </nav>
-   
+    {% if messages %}
+    <div id="messages">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
     <main>
        {% block content %} 
 
         {% endblock %}
     </main>
-    
-    
-    
 </body>
+<script>
+    setTimeout(function() {
+        let container = document.getElementById("messages");
+        if (container) {
+            container.style.transition = "opacity 0.5s ease";
+            container.style.opacity = "0";
+            setTimeout(() => container.remove(), 500); 
+        }
+    }, 3000);
+</script>
 </html>

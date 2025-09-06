@@ -8,7 +8,7 @@ Aggiungi/Modifica Sessione
 
 {% endblock %}
 
-{% block dashboard_page %}
+{% block content %}
 <div class="dashboard-main">
         <form method="post">
             {% csrf_token %}
@@ -16,7 +16,4 @@ Aggiungi/Modifica Sessione
             <button type="submit"> Salva Sessione</button>
         </form>
     </div>
-
-
-
 {% endblock %}
