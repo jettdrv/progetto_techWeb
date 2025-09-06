@@ -1,0 +1,33 @@
+{% extends 'users/dashboard.html' %}
+
+{%block title%}
+Friends
+{% endblock %}
+
+{% block content %}
+
+{% block dashboard %}
+<div class="dashboard-main">
+<h3>Amici di {{user.username}}</h3>
+{% if friends%}
+<div class="friend">
+{% for f in friends%}
+        {% if f.profile_picture %}
+            <img src="{{f.profile_picture.url }}" alt="immagine di profilo" class="circle">
+        {% endif %}
+        <h5>{{f.username}}</h5>
+        {% if f.is_professional and f.expertise_field%}
+            <p class="tag-expertise">{{ user.expertise_field }}</p>
+        {% endif %}
+        <a href="{% url 'social:remove_friend' f.id %}" onclick="return confirm('rimuovere {{f.username}} dagli amici?')">Rimuovi</a>
+    </div>
+{% endfor %}
+</div>
+{% endif %}
+
+</div>
+
+
+{%endblock %}
+
+{% endblock %}

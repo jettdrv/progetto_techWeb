@@ -10,12 +10,8 @@ class CustomUser(AbstractUser):
     expertise_field = models.CharField(max_length=100, blank=True, null=True)
     bio = models.CharField(max_length=500, blank=True)
     #--------aspetto social-----------------------------
-    friends = models.ManyToManyField('self', through='social.Friendship', symmetrical=True, related_name='friend_of')
+    friends = models.ManyToManyField('self', through='social.Friendship', symmetrical=True, blank = True, related_name='friend_of')
 
-    @property
-    def is_professional(self):
-        return self.user_type == 'Professional'
-    
     def save(self, *args, **kwargs):
         if self.pk:
             old = CustomUser.objects.get(pk=self.pk)
@@ -24,6 +20,19 @@ class CustomUser(AbstractUser):
                     old.profile_picture.delete(save=False)
         super().save(*args, **kwargs)
     
+    def add_friend(self, user):
+        if user not in self.friends.all():
+            self.friends.add(user)
+
+    def remove_friend(self, user):
+        if user in self.friends.all():
+            self.friends.remove(user)
+    def is_friend_with(self, user):
+        return user in self.friends.all()
+
+    @property
+    def is_professional(self):
+        return self.user_type == 'Professional'
     
     def __str__(self):
         return self.username
