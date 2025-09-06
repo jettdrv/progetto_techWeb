@@ -3,6 +3,7 @@ from .models import Friendship
 from users.models import CustomUser
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 
 @login_required
@@ -33,9 +34,33 @@ def remove_friend(request, user_id):
         messages.info(request, f"Non eri amico di {friend_user.username}")
     return redirect('social:friends')
 
+
+
+@login_required
+def user_search(request):
+    query = request.GET.get('q', '')
+    users = CustomUser.objects.exclude(id=request.user.id)
+
+    if query:
+        users = users.filter(
+            Q(username__contains=query) |
+            Q(email__contains=query)|
+            Q(expertise_field__contains=query)
+        )
+
+    for user in users:
+        user.is_friend= request.user.is_friend_with(user)
+
+    context={
+        'users': users,
+        'query': query,
+        'results_count':users.count()
+    }
+
+    return render(request, 'social/user_search.html', context)
+
+
+#da implementare le richieste di amicizia
 #def send_friend_request(request):
 #def accept_friend_request(request):
 #def reject_friend_request(request):
-
-
-

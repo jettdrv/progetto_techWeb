@@ -28,7 +28,7 @@ class CustomUser(AbstractUser):
         if user in self.friends.all():
             self.friends.remove(user)
     def is_friend_with(self, user):
-        return user in self.friends.all()
+        return self.friends.filter(id=user.id).exists()
 
     @property
     def is_professional(self):
