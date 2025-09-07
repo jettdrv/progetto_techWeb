@@ -3,9 +3,7 @@
 {% block content %}
 <div class="search-container">
     <h2>Trova Amici</h2>
-    <span class="results-badge">{{ results_count }} risultati</span>
-    </div>
-
+</div>
     <div class="search-box">
         <form method="get" class="search-form">
             <input type="text" name="q" class="search-input" 
@@ -19,7 +17,6 @@
             </a>
         </form>
     </div>
-
 
     {% if query %}
         {% if users %}
@@ -39,7 +36,6 @@
                     </div>
                 </div>
 
-
                 <div class="user-tags">
                     <span class="tag user-type">{{ user.get_user_type_display }}</span>
                     {% if user.is_professional and user.expertise_field %}
@@ -54,16 +50,13 @@
                         <span>{{ user.study_sessions.count }} sessioni</span>
                     </div>
                 </div>
-
-          
                 <div class="user-actions">
                     {% if user.is_friend %}
                     <span class="friend-badge">
                         <i class="fas fa-check"></i> Già amici
                     </span>
                     {% else %}
-                    <a href="{% url 'social:add_friend' user.id %}" class="add-friend-btn"
-                       onclick="return confirm('Aggiungere {{ user.username }} agli amici?')">
+                    <a href="{% url 'social:send_friend_request' user.id %}" class="add-friend-btn">
                         <i class="fas fa-user-plus"></i> Aggiungi agli amici
                     </a>
                     {% endif %}
@@ -76,25 +69,11 @@
         <div class="no-results">
             <i class="fas fa-search"></i>
             <h3>Nessun utente trovato</h3>
-            <p>Prova con una ricerca diversa per "{{ query }}"</p>
         </div>
         {% endif %}
     {% else %}
 
-    <div class="search-intro">
-        <i class="fas fa-users"></i>
-        <h3>Cerca nuovi amici</h3>
-        <p>Inserisci un username, email o competenza nella barra di ricerca</p>
-        
-        <div class="search-tips">
-            <h4>Suggerimenti di ricerca:</h4>
-            <ul>
-                <li><i class="fas fa-user"></i> Username: "mario", "luigi"</li>
-                <li><i class="fas fa-envelope"></i> Email: "example@mail.com"</li>
-                <li><i class="fas fa-briefcase"></i> Competenza: "Informatica", "Matematica"</li>
-            </ul>
-        </div>
-    </div>
+    
     {% endif %}
 </div>
 </div>

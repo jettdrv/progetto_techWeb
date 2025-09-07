@@ -20,6 +20,9 @@ Friends
         {% if f.is_professional and f.expertise_field%}
             <p class="tag-expertise">{{ f.expertise_field }}</p>
         {% endif %}
+        <p>Statistiche:</p>
+        <p>Oggi: {{f.today_hours}}</p>
+        <p>Questa settimana: {{f.week_hours}}</p>
         <a href="{% url 'social:remove_friend' f.id %}" onclick="return confirm('rimuovere {{f.username}} dagli amici?')">Rimuovi</a>
     </div>
 {% endfor %}

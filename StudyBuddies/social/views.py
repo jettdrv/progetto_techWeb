@@ -4,11 +4,19 @@ from users.models import CustomUser
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-
+from users.views import calculate_today_hours, calculate_week_hours
+from study.models import StudySession
 
 @login_required
 def show_friend_list(request):
     friends = request.user.friends.all()
+    for friend in friends:
+        user_sessions = StudySession.objects.filter(user=friend)
+        today_hours = calculate_today_hours(user_sessions)
+        week_hours = calculate_week_hours(user_sessions)
+
+        friend.today_hours = today_hours
+        friend.week_hours = week_hours
     return render(request, 'social/friend_list.html', {'friends': friends})
 
 
@@ -70,3 +78,4 @@ def remove_friend(request, user_id):
     else:
         messages.info(request,'Non eravate amici')
     return redirect('social:friends')
+

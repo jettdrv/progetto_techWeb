@@ -495,8 +495,7 @@
     background: #0056b3;
 }
 
-/* NESSUN RISULTATO */
-.no-results, .search-intro {
+.no-results{
     text-align: center;
     padding: 50px 20px;
     color: #666;
