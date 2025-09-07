@@ -1,9 +1,10 @@
-**StudyBuddies - Un social media che non ti fa perdere tempo**
+### **StudyBuddies - Un social media che non ti fa perdere tempo**
 **StudyBuddies** è un'applicazione web ideata per studenti e professionisti che vogliono 
 **monitorare** il proprio tempo di studio, analizzare statistiche attraverso grafici e impostare degli obiettivi per organizzare lo studio al meglio. 
 Invece di distrarti, puoi connetterti con i tuoi amici (i tuoi StudyBuddies) e
 con altre persone del settore di interesse per approfondire le tue conoscenze.
-Funzionalità:
+
+**Funzionalità**:
 ###  Monitoraggio 
 - **Tracciamento delle sessioni di studio** con nome della materia, durata e data
 - **Dashboard personale** con riepilogo ore (giornaliero, settimanale)
@@ -13,7 +14,7 @@ Funzionalità:
 - **Grafico a torta** distribuzione tempo per materie in una giornata
 - **Grafico a linee** trend settimanale delle ore di studio
 - Si possono impostare **obiettivi** 
-- Secondo gli obiettivi, si calcolano i lo **streak**, ovvero il numero di giorni consecutivi in cui si è raggiunto l'obiettivo
+- Secondo gli obiettivi, si calcola lo **streak**, ovvero il numero di giorni consecutivi in cui si è raggiunto l'obiettivo
 
 ### Social Productivity
 - **Sistema di amicizie** con richieste e accettazione
@@ -28,10 +29,10 @@ Funzionalità:
 ###  Export e Report
 - **Generazione PDF** dei propri dati
 - **Selezione materie** per report personalizzati
-- **Dettagli completi** sessioni di studio
+- **Dettagli completi** delle sessioni di studio
 ## Screenshot
 
-![Homepage](screenshots/homepage.png)
+![Homepage](StudyBuddies/screenshots/homepage.png)
 *Dashboard principale con statistiche e riepilogo ore*
 
 ![Dashboard](screenshots/dashboard.png)
