@@ -53,7 +53,7 @@ Dettagli gruppo
             {% endif %}
 
             <h4>Commenti</h4>
-            <div class="comments">
+            <div  class="comments">
                 {% for comment in d.comments.all %}
                         <small><b>{{ comment.creator.username }}</b>:</small> 
                         <small>{{ comment.created_at }}</small>
@@ -84,7 +84,6 @@ Dettagli gruppo
     </div>
 </div>
 {% endfor %}
-
 {% endblock %}
 
 

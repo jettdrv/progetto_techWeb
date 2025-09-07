@@ -1,4 +1,4 @@
-# Django
+
 *.log
 *.pot
 *.pyc
@@ -7,22 +7,20 @@ db.sqlite3
 media/
 staticfiles/
 
-# Environment
 .env
 .venv/
 venv/
 env/
 
-# IDE
+
 .vscode/
 .idea/
 *.swp
 *.swo
 
-# OS
+
 .DS_Store
 Thumbs.db
 
-# Database migrations (optional - some prefer to track them)
-# */migrations/*.py
-# !*/migrations/__init__.py
+ */migrations/*.py
+!*/migrations/__init__.py

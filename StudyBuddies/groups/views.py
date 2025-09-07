@@ -4,6 +4,8 @@ from django.contrib import messages
 from .models import *
 from .forms import *
 from users.models import CustomUser
+from django.template.loader import render_to_string
+from django.http import JsonResponse
 
 @login_required
 def group_list(request):
