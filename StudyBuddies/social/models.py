@@ -1,11 +1,13 @@
 from django.db import models
-from users.models import CustomUser
+from django.conf import settings
+
+User = settings.AUTH_USER_MODEL
 
 class Friendship(models.Model):
 
     STATUS_CHOICES = (('pending', 'Pending'), ('accepted', 'Accepted'), ('rejected', 'Rejected'))
-    from_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='sent_request')
-    to_user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='received_request')
+    from_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_request')
+    to_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='received_request')
     status=models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
     class Meta:
         unique_together = ['from_user', 'to_user']

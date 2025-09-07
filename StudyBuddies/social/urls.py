@@ -5,7 +5,8 @@ app_name = 'social'
 
 urlpatterns = [
 
-    path('search/', views.user_search, name="user_search"),
+    path('search/', views.search_user_or_group, name="search"),
+    path('search/<str:search_string>/<str:search_from>/', views.search_results, name="search_results"),
     path('friend-list/', views.show_friend_list, name="friends"),
     path('friend-list/remove/<int:user_id>/', views.remove_friend, name="remove_friend"),
     path('friend-request/<int:user_id>/', views.send_friend_request, name='send_friend_request'),

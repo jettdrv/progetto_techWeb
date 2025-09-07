@@ -1,6 +1,9 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.db.models import Q
 from django.core.validators import MinValueValidator, MaxValueValidator
+from social.models import Friendship
+
 
 class CustomUser(AbstractUser):
     USER_TYPE = (('Student', 'student'), ('Professional', 'professional'))
@@ -21,17 +24,18 @@ class CustomUser(AbstractUser):
                 if old.profile_picture and old.profile_picture.name != '/pfp/nopfp.jpg':
                     old.profile_picture.delete(save=False)
         super().save(*args, **kwargs)
-    
 
-    def add_friend(self, user):
-        if user not in self.friends.all():
-            self.friends.add(user)
-
-    def remove_friend(self, user):
-        if user in self.friends.all():
-            self.friends.remove(user)
     def is_friend_with(self, user):
         return self.friends.filter(id=user.id).exists()
+    def remove_friend(self, user):
+        Friendship.objects.filter(Q(from_user=self, to_user=user)| Q(from_user=user, to_user=self), status = 'accepted').delete()
+        self.friends.remove(user)
+        
+    @property
+    def friends_accepted(self):
+        friendships = Friendship.objects.filter((models.Q(from_user=self) | models.Q(to_user=self)), status='accepted')
+        return [f.to_user if f.from_user == self else f.from_user for f in friendships]
+
 
     @property
     def is_professional(self):
