@@ -1,0 +1,31 @@
+{% extends "users/dashboard.html" %}
+{% load crispy_forms_tags %}
+{%block title%}
+Invita al gruppo
+{% endblock %}
+
+{% block content %}
+<div class="group-invite-container">
+    <div class="add-invite">
+        <h3>Invita altri membri</h3>
+        <form method="post">
+            {% csrf_token %}
+            {{ form|crispy}}
+            <button type="submit">Invita</button>
+        </form>
+    </div>
+
+    <hr>
+    <div class="inviti-sospeso">
+        <h3>Inviti in sospeso</h3>
+        {% if pending_invites %}
+        {% for invite in pending_invites %}
+            <p>{{invite.invitee.username}}</p>
+        {% endfor %}
+        {%else%}
+            <p>Nessun invito</p>
+        {%endif%}   
+
+{% endblock %}
+
+

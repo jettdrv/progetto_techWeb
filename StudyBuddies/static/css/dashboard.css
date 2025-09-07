@@ -227,10 +227,25 @@
 .group-details-container{
     box-sizing: border-box;
 }
-
+.private-group{
+    display:flex;
+    justify-content: space-evenly;
+    float:left;
+    width:30%;
+}
 .add-discussion{
+    margin-left: 0;
     float:left;
     width:30%
+}
+.invite-members{
+    float:left;
+}
+.invite-details{
+    margin-bottom: 30px;
+}
+.action-botton-invite{
+    margin-top: 30px;
 }
 .old-discussion{
     float:right;

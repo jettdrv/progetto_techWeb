@@ -1,0 +1,24 @@
+{% extends "users/dashboard.html" %}
+
+{% block content%}
+<div class="group-list-container">
+    <h3>Gestione gruppo {{group.name}}</h3>
+    <p>Membri del gruppo: </p>
+    {%if members %}
+        {% for membership in members %}
+        <div class="group">
+            <div class="invite-details">
+                <p>{{membership.user.username}}</p>
+                <form method="post" action="{% url 'groups:remove_member' group.id membership.user.id%}">
+                    {% csrf_token%}
+                    <button type="submit">Rimuovi</button>
+                </form>
+            </div>
+        </div>
+        {% endfor%}
+    {% else %}
+        <h4>Nessun altro membro.</h4>
+    {% endif %}
+</div>
+
+{%endblock%}

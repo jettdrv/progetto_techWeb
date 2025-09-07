@@ -9,6 +9,7 @@ Lista gruppi
     <h3>Gruppi di studio</h3>
     <div class="add-group">
         <a href="{% url 'groups:create_group' %}" class="main-buttons">Crea un nuovo gruppo</a>
+        <a href="{% url 'groups:my_invites' %}" class="main-buttons">Vedi richieste</a>
     </div>
 
     {%if groups%}

@@ -7,7 +7,13 @@ class StudyGroup(models.Model):
     description = models.TextField()
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='created_group')
     privacy = models.CharField(max_length=10, choices=PRIVACY_CHOICES, default='public')
-    #members=models.ManyToManyField(settings.AUTH_USER_MODEL, through= 'GroupMembership', related_name='study_groups')
+    members = models.ManyToManyField(settings.AUTH_USER_MODEL, through='GroupMembership', related_name='study_groups', blank=True)
+
+    def is_member(self, user):
+        return self.members.filter(id=user.id).exists()
+    
+    def is_creator(self, user):
+        return self.creator == user
 
     def __str__(self):
         return self.name
@@ -24,6 +30,9 @@ class GroupMembership(models.Model):
     class Meta:
         unique_together = ['user', 'group']
 
+    def is_admin(self):
+        return self.role =='admin'
+
     def __str__(self):
         return f"{self.user.username} in {self.group.name}"
 
@@ -37,6 +46,9 @@ class GroupDiscussion(models.Model):
     class Meta:
         ordering = ['-created_at']
 
+    def can_edit(self, user):
+        return self.creator == user or self.group.creator == user
+
     def __str__(self):
         return f"Discussione creata da {self.creator.username} in {self.group.name}"
 
@@ -46,10 +58,12 @@ class Comment(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def can_edit(self, user):
+        return self.creator == user or self.discussion.group.creator == user
+
     def __str__(self):
         return f"Commento di {self.creator.username} della discussione {self.discussion.id}"
 
-'''
 class GroupInvite(models.Model):
     STATUS_CHOICES = (
         ('pending', 'In attesa'),
@@ -64,4 +78,13 @@ class GroupInvite(models.Model):
     
     class Meta:
         unique_together = ['group', 'invitee']
-'''
+
+    def accept(self):
+        self.status='accepted'
+        self.save()
+
+        GroupMembership.objects.create(user=self.invitee, group = self.group, role='member')
+
+    def reject(self):
+        self.status = 'rejected'
+        self.save()

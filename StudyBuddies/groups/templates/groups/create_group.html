@@ -1,14 +1,15 @@
 {% extends "users/dashboard.html" %}
+{% load crispy_forms_tags %}
 
 {%block title%}
-Crea Gruppo
+Crea Gruppo di Studio
 {% endblock %}
 
 {% block content%}
 <h2>Crea un nuovo gruppo</h2>
 <form method="post">
   {% csrf_token %}
-  {{ form.as_p }}
+  {{ form|crispy }}
   <button type="submit">Crea</button>
 </form>
 
