@@ -11,8 +11,8 @@ con altre persone del settore di interesse per approfondire le tue conoscenze.
 - **Materia più studiata** 
 
 ###  Visualizzazione Dati
-- **Grafico a torta** distribuzione tempo per materie in una giornata
-- **Grafico a linee** trend settimanale delle ore di studio
+- **Grafico a torta** - distribuzione tempo per materie in una giornata
+- **Grafico a linee** - trend settimanale delle ore di studio
 - Si possono impostare **obiettivi** 
 - Secondo gli obiettivi, si calcola lo **streak**, ovvero il numero di giorni consecutivi in cui si è raggiunto l'obiettivo
 
