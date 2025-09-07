@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from .models import StudySession, Subject
 from django.urls import reverse
 from datetime import datetime
+from django.core.exceptions import ValidationError
 
 User = get_user_model()
 class StudySessionTest(TestCase):
@@ -18,9 +19,11 @@ class StudySessionTest(TestCase):
         self.assertEqual(session.subject.name, 'matematica')
         self.assertIsInstance(session.subject, Subject)
 
-        session2 = StudySession.objects.create(user = self.user, subject =self.subject, duration =25.0, date=datetime.now().date(), notes='session2created by unit test1')
-
-
+    def test_study_session_create(self):
+        session=StudySession.objects.create(user = self.user, subject =self.subject, duration = 25.0, date=datetime.now().date(), notes='session created by unit test2')
+        with self.assertRaises(ValidationError):
+            session.full_clean()
+        
     def test_study_session_list(self):
         response = self.client.get(reverse('study:session_list'))
         self.assertEqual(response.status_code, 200)

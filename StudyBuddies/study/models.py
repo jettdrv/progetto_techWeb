@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 User = get_user_model()
@@ -19,7 +21,7 @@ class Subject(models.Model):
 class StudySession(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="study_sessions")
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE,)
-    duration = models.DecimalField(max_digits=4, decimal_places=1) 
+    duration = models.DecimalField(max_digits=4, decimal_places=1, validators=[MinValueValidator(0.5), MaxValueValidator(24.0)]) 
     date = models.DateField() 
     notes = models.TextField(max_length=100)
 
