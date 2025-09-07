@@ -10,3 +10,16 @@ class Friendship(models.Model):
     class Meta:
         unique_together = ['from_user', 'to_user']
 
+    def accept(self):
+        self.status = 'accepted'
+        self.save()
+
+        self.from_user.friends.add(self.to_user)
+        self.to_user.friends.add(self.from_user)
+
+    def reject(self):
+        self.status = 'rejected'
+        self.save()
+
+
+

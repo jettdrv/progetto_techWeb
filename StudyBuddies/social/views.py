@@ -9,31 +9,7 @@ from django.db.models import Q
 @login_required
 def show_friend_list(request):
     friends = request.user.friends.all()
-
     return render(request, 'social/friend_list.html', {'friends': friends})
-
-
-@login_required
-def add_friend(request, user_id):
-    friend_user = get_object_or_404(CustomUser, id=user_id)
-
-    if request.user != friend_user:
-        request.user.add_friend(friend_user)
-        messages.success(request, 'Richiesta inviata')
-    else:
-        messages.success(request, 'Non puoi aggiungerti come amico da solo')
-    return redirect('social:friends')
-
-@login_required
-def remove_friend(request, user_id):
-    friend_user = get_object_or_404(CustomUser, id=user_id)
-
-    if request.user.remove_friend(friend_user):
-        messages.success(request, 'Rimozione con successo')
-    else:
-        messages.info(request, f"Non eri amico di {friend_user.username}")
-    return redirect('social:friends')
-
 
 
 @login_required
@@ -57,8 +33,40 @@ def user_search(request):
 
     return render(request, 'social/user_search.html', context)
 
+@login_required
+def send_friend_request(request, user_id):
+    to_user = get_object_or_404(CustomUser, id=user_id)
 
-#da implementare le richieste di amicizia
-#def send_friend_request(request):
-#def accept_friend_request(request):
-#def reject_friend_request(request):
+    Friendship.objects.create(from_user = request.user, to_user = to_user, status='pending')
+    messages.success(request, 'Richiesta di amicizia inviata')
+    return redirect('social:user_search')
+
+@login_required
+def view_friend_requests(request):
+    friend_requests = Friendship.objects.filter(to_user =request.user, status ='pending').select_related('from_user')
+    return render(request, 'social/friend_requests.html', {'friend_requests':friend_requests})
+
+@login_required
+def accept_friend_request(request, friend_req_id):
+    friend_request = get_object_or_404(Friendship, id = friend_req_id, to_user = request.user, status='pending')
+    friend_request.accept()
+    messages.success(request, 'Richiesta accettata')
+    return redirect('social:friend_requests')
+
+@login_required
+def reject_friend_request(request, friend_req_id):
+    friend_request = get_object_or_404(Friendship, id = friend_req_id, to_user = request.user, status='pending')
+    friend_request.reject()
+    messages.success(request, 'Richiesta rifiutata')
+    return redirect('social:friend_requests')
+
+
+@login_required
+def remove_friend(request, user_id):
+    friend_user = get_object_or_404(CustomUser, id=user_id)
+
+    if request.user.remove_friend(friend_user):
+        messages.success(request, 'Rimozione con successo')
+    else:
+        messages.info(request,'Non eravate amici')
+    return redirect('social:friends')

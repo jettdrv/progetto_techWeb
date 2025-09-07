@@ -8,6 +8,7 @@ Friends
 
 <div class="dashboard-main">
 <h2>Amici di {{user.username}}</h2>
+<a href="{%url 'social:friend_requests' %}" class="main-buttons">Vedi richieste</a>
 <div class="friend-list-grid">
 {% if friends%}
 {% for f in friends%}
@@ -23,5 +24,6 @@ Friends
     </div>
 {% endfor %}
 {% endif %}
+
 
 {% endblock %}

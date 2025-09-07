@@ -1,0 +1,33 @@
+{% extends 'users/dashboard.html' %}
+
+{%block title%}
+Friends
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-main">
+<h2>Richieste di amicizia</h2>
+
+{% if friend_requests %}
+{% for f in friend_requests%}
+    <div class="friend">
+        {% if f.from_user.profile_picture %}
+            <img src="{{f.from_user.profile_picture.url }}" alt="immagine di profilo" class="circle">
+        {% endif %}
+        <h3>{{f.from_user.username}}</h3>
+        {% if f.is_professional and f.expertise_field%}
+            <p class="tag-expertise">{{ f.expertise_field }}</p>
+        {% endif %}
+        <a href="{% url 'social:accept_friend_request' f.id %}" class="main-buttons">Accetta</a>
+        <a href="{% url 'social:reject_friend_request' f.id %}" class="main-buttons">Rifiuta</a>
+    </div>
+{% endfor %}
+{%else%}
+<p>Nessuna richiesta ricevuta.</p>
+{% endif %}
+<p>Ritorna alla lista degli amici</p>
+<a href="{%url 'social:friends'%}", class="main-buttons">Ritorna</a>
+
+
+{% endblock %}
