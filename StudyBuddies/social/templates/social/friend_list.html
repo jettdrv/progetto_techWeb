@@ -6,27 +6,30 @@ Friends
 
 {% block content %}
 
-<div class="dashboard-main">
+<div class="friend-list-main">
 <h2>Amici di {{user.username}}</h2>
-<a href="{%url 'social:friend_requests' %}" class="main-buttons">Vedi richieste</a>
-<div class="friend-list-grid">
-{% if friends%}
-{% for f in friends%}
-    <div class="friend">
-        {% if f.profile_picture %}
-            <img src="{{f.profile_picture.url }}" alt="immagine di profilo" class="circle">
-        {% endif %}
-        <h3>{{f.username}}</h3>
-        {% if f.is_professional and f.expertise_field%}
-            <p class="tag-expertise">{{ f.expertise_field }}</p>
-        {% endif %}
-        <p>Statistiche:</p>
-        <p>Oggi: {{f.today_hours}}</p>
-        <p>Questa settimana: {{f.week_hours}}</p>
-        <a href="{% url 'social:remove_friend' f.id %}" onclick="return confirm('rimuovere {{f.username}} dagli amici?')">Rimuovi</a>
+<div class="vedi-richieste">
+    <a href="{%url 'social:friend_requests' %}" class="main-buttons">Vedi richieste</a>
+</div>
+
+    {% if friends%}
+    {% for f in friends%}
+    <div class="friend-list-grid">
+        <div class="friend">
+            {% if f.profile_picture %}
+                <img src="{{f.profile_picture.url }}" alt="immagine di profilo" class="circle">
+            {% endif %}
+            <h3>{{f.username}}</h3>
+            {% if f.is_professional and f.expertise_field%}
+                <p class="tag-expertise">{{ f.expertise_field }}</p>
+            {% endif %}
+            <p>Statistiche:</p>
+            <p>Oggi: {{f.today_hours}}</p>
+            <p>Questa settimana: {{f.week_hours}}</p>
+            <a href="{% url 'social:remove_friend' f.id %}" onclick="return confirm('rimuovere {{f.username}} dagli amici?')">Rimuovi</a>
     </div>
-{% endfor %}
-{% endif %}
+    {% endfor %}
+    {% endif %}
 
 
 {% endblock %}

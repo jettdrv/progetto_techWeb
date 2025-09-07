@@ -8,6 +8,7 @@ class StudyGroup(models.Model):
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='created_group')
     privacy = models.CharField(max_length=10, choices=PRIVACY_CHOICES, default='public')
     members = models.ManyToManyField(settings.AUTH_USER_MODEL, through='GroupMembership', related_name='study_groups', blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def is_member(self, user):
         return self.members.filter(id=user.id).exists()

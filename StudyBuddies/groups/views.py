@@ -7,7 +7,7 @@ from users.models import CustomUser
 
 @login_required
 def group_list(request):
-    groups = StudyGroup.objects.filter(groupmembership__user = request.user)
+    groups = StudyGroup.objects.filter(groupmembership__user = request.user).order_by('-created_at')
     public_groups = StudyGroup.objects.filter(privacy = 'public').exclude(groupmembership__user = request.user)
     return render(request, 'groups/group_list.html', {'groups': groups, 'public_groups': public_groups})
 

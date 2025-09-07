@@ -6,7 +6,7 @@ Friends
 
 {% block content %}
 
-<div class="dashboard-main">
+<div class="friend-request-main">
 <h2>Richieste di amicizia</h2>
 
 {% if friend_requests %}
@@ -19,15 +19,19 @@ Friends
         {% if f.is_professional and f.expertise_field%}
             <p class="tag-expertise">{{ f.expertise_field }}</p>
         {% endif %}
-        <a href="{% url 'social:accept_friend_request' f.id %}" class="main-buttons">Accetta</a>
-        <a href="{% url 'social:reject_friend_request' f.id %}" class="main-buttons">Rifiuta</a>
+        <div class="action-button-friend-request">
+            <a href="{% url 'social:accept_friend_request' f.id %}" class="main-buttons">Accetta</a>
+            <a href="{% url 'social:reject_friend_request' f.id %}" class="main-buttons">Rifiuta</a>
+        </div>
     </div>
 {% endfor %}
 {%else%}
 <p>Nessuna richiesta ricevuta.</p>
 {% endif %}
-<p>Ritorna alla lista degli amici</p>
-<a href="{%url 'social:friends'%}", class="main-buttons">Ritorna</a>
-
+    <div class="back-button-friend-request">
+        <span>Ritorna alla lista degli amici</span>
+        <a href="{%url 'social:friends'%}", class="main-buttons">Ritorna</a>
+    </div>
+</div>
 
 {% endblock %}

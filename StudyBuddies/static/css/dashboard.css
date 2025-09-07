@@ -186,9 +186,26 @@
     margin-left: 30px;
     margin-right:30px;
 }
+.friend-list-main{
+    display: inline;
+    padding:30;
+    margin-left: 30px;
+}
+.vedi-richieste{
+    margin:50px;
+}
 .friend-list-grid{
     display:grid;
     grid-template-columns: auto auto auto;
+}
+
+.friend-request-main{
+    display: inline;
+    padding:30;
+    margin-left: 30px;
+}
+.action-button-friend-request{
+    margin:30px;
 }
 .add-group{
     margin-top:30px;
@@ -225,32 +242,37 @@
     color:rgb(255, 255, 255);
 }
 .group-details-container{
-    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap:30px;
+    max-width: 1200px;
+    margin:30px auto;
+    padding:20px;
 }
 .private-group{
-    display:flex;
-    justify-content: space-evenly;
-    float:left;
-    width:30%;
+    flex:1;
+    max-width: 350px;
 }
-.add-discussion{
-    margin-left: 0;
-    float:left;
-    width:30%
+.old-discussion{
+    flex:2;
 }
-.invite-members{
-    float:left;
+.add-discussion, .manage-group, .invite-members{
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color:  #bbe8d2;
+    border: 1px solid #a6d1bc;
+    border-radius: 8px;
+    margin-top: 22px;
 }
+
 .invite-details{
     margin-bottom: 30px;
 }
 .action-botton-invite{
     margin-top: 30px;
 }
-.old-discussion{
-    float:right;
-    width: 70%;
-}
+
 .group-list-container:after{
 
     display: table;
@@ -295,9 +317,10 @@
     background-color: #f8fffc ;
     padding:10px;
     margin-bottom: 10px;
-
 }
-/*search*/
+
+
+
 .search-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -373,7 +396,6 @@
     background: #545b62;
 }
 
-/* GRIGLIA UTENTI */
 .users-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -428,7 +450,7 @@
     color: #666;
 }
 
-/* TAG */
+
 .user-tags {
     margin-bottom: 15px;
 }
@@ -451,7 +473,6 @@
     color: white;
 }
 
-/* STATS */
 .user-stats {
     margin-bottom: 15px;
 }
@@ -507,36 +528,7 @@
     color: #ccc;
 }
 
-/* SUGGERIMENTI */
-.search-tips {
-    margin-top: 30px;
-    text-align: left;
-    max-width: 400px;
-    margin: 30px auto;
-}
 
-.search-tips h4 {
-    color: #333;
-    margin-bottom: 15px;
-}
-
-.search-tips ul {
-    list-style: none;
-    padding: 0;
-}
-
-.search-tips li {
-    padding: 5px 0;
-    color: #555;
-}
-
-.search-tips i {
-    width: 20px;
-    margin-right: 10px;
-    color: #007bff;
-}
-
-/* RESPONSIVE */
 @media (max-width: 768px) {
     .search-form {
         flex-direction: column;
