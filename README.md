@@ -32,7 +32,7 @@ con altre persone del settore di interesse per approfondire le tue conoscenze.
 - **Dettagli completi** delle sessioni di studio
 ## Screenshot
 
-![Homepage](/screenshots/homepage.png)
+![Homepage](screenshots/homepage.png)
 *Dashboard principale con statistiche e riepilogo ore*
 
 ![Dashboard](screenshots/dashboard.png)
