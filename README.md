@@ -16,7 +16,7 @@ con altre persone del settore di interesse per approfondire le tue conoscenze.
 - Si possono impostare **obiettivi** 
 - Secondo gli obiettivi, si calcola lo **streak**, ovvero il numero di giorni consecutivi in cui si è raggiunto l'obiettivo
 
-### Connessione con i tuoi StudyBuddies
+### Connettiti con i tuoi StudyBuddies
 - **Sistema di amicizie** con richieste e accettazione
 - **Immagine di profilo** per renderti più riconoscibile dagli amici
 - **Ricerca utenti** per username
