@@ -13,7 +13,7 @@ class CreateSessionForm(forms.ModelForm):
         fields = ('subject', 'subject_input', 'duration', 'date', 'notes')
         widgets = {
             'date': forms.DateInput(attrs={'type': 'date', 'max': timezone.now().date()}),
-            'duration': forms.NumberInput(attrs={'step': '0.5', 'min': '0.5', 'max': '24'}),
+            'duration': forms.NumberInput(attrs={'step': '0.5', 'min': '0.5', 'max': '24.0'}),
             'subject': forms.Select(attrs={'class':'form-control'}),
             'notes': forms.Textarea(attrs={'rows': 3}),
         }
