@@ -28,3 +28,12 @@ class StudySessionTest(TestCase):
         response = self.client.get(reverse('study:session_list'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'study/session_list.html')
+
+class SubjectTest(TestCase):
+    def setUp(self):
+        self.subject = Subject(name="testSubject")
+
+    def test_subject_name(self):
+        self.assertEqual(self.subject.name, 'testSubject')
+        self.subject.name = 'TestSubject'
+        self.assertNotEqual(self.subject.name, 'testSubject')
