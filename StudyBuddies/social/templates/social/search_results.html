@@ -20,8 +20,9 @@
                         {% endif %}
                     </div>
                 </div>
-
+                
                 <div class="user-tags">
+                    <span class="username">{{user.username}}</span>
                     <span class="tag user-type">{{ user.get_user_type_display }}</span>
                     {% if user.is_professional and user.expertise_field %}
                     <span class="tag expertise">{{ user.expertise_field }}</span>
@@ -36,9 +37,13 @@
                     </div>
                 </div>
                 <div class="user-actions">
-                    {% if user.is_friend  %}
+                    {% if user.is_friend   %}
                     <span class="friend-badge">
                         <i class="fas fa-check"></i> Già amici
+                    </span>
+                    {%elif user.friend_request_status == 'pending' %}
+                        <span class="friend-badge">
+                        <i class="fas fa-user-plus"></i> Richiesto
                     </span>
                     {% else %}
                     <a href="{% url 'social:send_friend_request' user.id %}" class="add-friend-btn">

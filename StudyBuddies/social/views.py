@@ -42,6 +42,8 @@ def search_results(request, search_string, search_from):
         results = CustomUser.objects.filter(username__icontains=search_string).exclude(id=request.user.id)
         for u in results:
             u.is_friend=request.user.is_friend_with(u)
+            if not u.is_friend:
+                u.friend_request_status = request.user.friend_request_status(u)
     elif search_from=='groups':
         results = StudyGroup.objects.filter(name__icontains=search_string)
         results = results.filter(privacy='public')
@@ -68,7 +70,14 @@ def send_friend_request(request, user_id):
 
 @login_required
 def view_friend_requests(request):
-    friend_requests = Friendship.objects.filter(to_user =request.user, status ='pending').select_related('from_user')
+    accepted_friends = request.user.friends_accepted
+
+    friend_requests =Friendship.objects.filter(
+        to_user=request.user, 
+        status='pending'
+    ).exclude(
+        from_user__in=accepted_friends
+    ).select_related('from_user')
     return render(request, 'social/friend_requests.html', {'friend_requests':friend_requests})
 
 @login_required

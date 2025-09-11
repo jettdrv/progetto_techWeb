@@ -26,17 +26,32 @@ class CustomUser(AbstractUser):
         super().save(*args, **kwargs)
 
     def is_friend_with(self, user):
-        return self.friends.filter(id=user.id).exists()
+        return Friendship.objects.filter(from_user=self, to_user=user, status='accepted').exists() or Friendship.objects.filter(from_user=user, to_user = self, status='accepted').exists()
+    
     def remove_friend(self, user):
         Friendship.objects.filter(Q(from_user=self, to_user=user)| Q(from_user=user, to_user=self), status = 'accepted').delete()
         self.friends.remove(user)
+
+    def friend_request_status(self, toUser):
+        friend_requests_sent = Friendship.objects.filter(from_user=self, to_user=toUser)
+        if friend_requests_sent.exists():
+        
+            if friend_requests_sent.filter(status='pending').exists():
+                return 'pending'
+            elif friend_requests_sent.filter(status='rejected').exists():
+                return 'rejected'
+        else:
+            return '-'
         
     @property
     def friends_accepted(self):
-        friendships = Friendship.objects.filter((models.Q(from_user=self) | models.Q(to_user=self)), status='accepted')
+        friendships = Friendship.objects.filter((models.Q(from_user=self) | models.Q(to_user=self)), status='accepted').select_related('from_user', 'to_user')
         return [f.to_user if f.from_user == self else f.from_user for f in friendships]
-
-
+    
+    @property
+    def friend_request_pending(self):
+        return Friendship.objects.filter(to_user =self, status='pending').select_related('from_user')
+    
     @property
     def is_professional(self):
         return self.user_type == 'Professional'

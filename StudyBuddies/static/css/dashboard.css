@@ -389,6 +389,10 @@
     margin-top: 10px;
 }
 
+.username{
+    font-weight: bold;
+}
+
 .add-friend-btn {
     display: inline-block;
     background: #4caf50;

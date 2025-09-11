@@ -23,5 +23,8 @@ class Friendship(models.Model):
         self.status = 'rejected'
         self.save()
 
+    
+        
+
 
 
