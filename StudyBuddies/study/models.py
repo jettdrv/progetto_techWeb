@@ -20,7 +20,7 @@ class Subject(models.Model):
 
 class StudySession(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="study_sessions")
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE,)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
     duration = models.DecimalField(max_digits=4, decimal_places=1, validators=[MinValueValidator(0.5), MaxValueValidator(24.0)]) 
     date = models.DateField() 
     notes = models.TextField(max_length=100)

@@ -7,7 +7,7 @@
 
 {% block content%}
 <main class="homepage-main">
-  <h1 class="benvenuto">Benvenuto a StudyBuddies!</h1>
+  <h1 class="benvenuto">Benvenuto su StudyBuddies!</h1>
   <h2 class="slogan">L'app ideata per migliorare la tua produttività e connetterti con i tuoi Study Buddies.</h2>
   <img src="{% static 'images/benvenuto.png' %}" alt="pupazzo di benvenuto" width="200" height="200">
   <!--<a href="http://www.freepik.com">Designed by Freepik</a>-->
@@ -19,7 +19,11 @@
     </span>
     <span>
         <p class="label-b2">Oppure registrati per far parte del mondo di StudyBuddies</p>
-        <a class= "btn-homepage-dashboard" href="{% url 'users:register' %}">Registrati</a>
+        {% if user.is_authenticated %}
+          <a class= "btn-homepage-dashboard" href="{% url 'users:profile' %}">Registrati</a>
+        {% else %}
+          <a class= "btn-homepage-dashboard" href="{% url 'users:register' %}">Registrati</a>
+        {% endif %}
        
     </span>
   </div>
