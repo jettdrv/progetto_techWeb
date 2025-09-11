@@ -62,7 +62,7 @@
                     <hr>
                     <p class="group-description">{{ group.description }}</p>
                     <span class="privacy-badge">{{ group.privacy}}</span>
-                    <a href="{% url 'groups:group_details' group.id %}" class="main-buttons">Entra</a>
+                    <a href="{% url 'groups:join_group' group.id %}" class="main-buttons">Entra</a>
                 </div>
         {% endfor %}
         {% endif%}

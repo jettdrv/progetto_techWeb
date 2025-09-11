@@ -27,6 +27,18 @@ def group_details(request, group_id):
     return render(request, 'groups/group_details.html', context)
 
 @login_required
+def join_public_group(request, group_id):
+    group = get_object_or_404(StudyGroup, id=group_id)
+
+    if not group.is_member(request.user):
+        GroupMembership.objects.create(user=request.user, group=group, role='member')
+        messages.success(request, "Ti sei unito al gruppo")
+    else:
+        messages.info(request, 'sei gia membro')
+
+    return redirect('groups:group_details', group_id = group.id)
+
+@login_required
 def create_group(request):
     if request.method =='POST':
         form = StudyGroupForm(request.POST)
